@@ -1,0 +1,159 @@
+{
+  "requesterUsername": "dealenx",
+  "requesterAvatarIconUri": {
+    "$mid": 1,
+    "path": "/u/231215291",
+    "scheme": "https",
+    "authority": "avatars.githubusercontent.com",
+    "query": "v=4"
+  },
+  "responderUsername": "GitHub Copilot",
+  "responderAvatarIconUri": {
+    "id": "copilot"
+  },
+  "initialLocation": "panel",
+  "requests": [
+    {
+      "requestId": "request_962e76d4-743c-490e-9609-c8f65ef52f56",
+      "message": {
+        "parts": [
+          {
+            "range": {
+              "start": 0,
+              "endExclusive": 45
+            },
+            "editorRange": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 1,
+              "endColumn": 46
+            },
+            "text": "Найди информацию о снежных барсах в интернете",
+            "kind": "text"
+          }
+        ],
+        "text": "Найди информацию о снежных барсах в интернете"
+      },
+      "variableData": {
+        "variables": []
+      },
+      "response": [
+        {
+          "value": "Я помогу вам найти информацию о снежных барсах в интернете. Давайте поищем актуальную информацию об этих удивительных животных. ",
+          "supportThemeIcons": false,
+          "supportHtml": false
+        },
+        {
+          "kind": "prepareToolInvocation",
+          "toolName": "copilot_fetchWebPage"
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "presentation": "hidden",
+          "invocationMessage": "Using \"Fetch Web Page\"",
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "toolCallId": "16a3088a-dbed-49f6-b9c7-2742be395a0c",
+          "toolId": "copilot_fetchWebPage"
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "invocationMessage": {
+            "value": "Fetching 3 resources",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false
+          },
+          "pastTenseMessage": {
+            "value": "Fetched 3 resources",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false
+          },
+          "isConfirmed": {
+            "type": 3,
+            "scope": "profile"
+          },
+          "isComplete": true,
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "resultDetails": [
+            {
+              "$mid": 1,
+              "external": "https://ru.wikipedia.org/wiki/%D0%A1%D0%BD%D0%B5%D0%B6%D0%BD%D1%8B%D0%B9_%D0%B1%D0%B0%D1%80%D1%81",
+              "path": "/wiki/Снежный_барс",
+              "scheme": "https",
+              "authority": "ru.wikipedia.org"
+            },
+            {
+              "$mid": 1,
+              "external": "https://www.wwf.ru/species/snow-leopard/",
+              "path": "/species/snow-leopard/",
+              "scheme": "https",
+              "authority": "www.wwf.ru"
+            },
+            {
+              "$mid": 1,
+              "external": "https://www.nationalgeographic.com/animals/mammals/facts/snow-leopard",
+              "path": "/animals/mammals/facts/snow-leopard",
+              "scheme": "https",
+              "authority": "www.nationalgeographic.com"
+            }
+          ],
+          "toolCallId": "f68c1772-b4f0-431a-9b77-f0c421818017",
+          "toolId": "vscode_fetchWebPage_internal"
+        },
+        {
+          "value": "На основе найденной информации о снежных барсах (ирбисах) могу предоставить вам подробные сведения об этих удивительных животных:\n\n## **Снежный барс (Ирбис) - основная информация**\n\n### **Общие характеристики:**\n- **Научное название:** Panthera uncia\n- **Размер:** длина тела 103-130 см, хвост 80-105 см\n- **Вес:** 22-40 кг\n- **Статус охраны:** Уязвимый вид (IUCN Red List)\n\n### **Внешний вид:**\n- Густая, длинная шерсть светло-серого цвета с дымчатым налетом\n- Крупные кольцевидные пятна в форме розеток\n- Очень длинный и пушистый хвост (до 105 см)\n- Широкие лапы, покрытые мехом, действуют как естественные снегоступы\n- Небольшая округлая голова с короткими ушами\n\n### **Среда обитания:**\n- **Географический ареал:** горы Центральной и Южной Азии (12 стран)\n- **Высота:** 1500-6000 метров над уровнем моря\n- **Предпочитаемые места:** альпийские луга, скалистые местности, каменистые россыпи\n- **В России:** Алтай, Тува, Хакасия, Красноярский край, Бурятия\n\n### **Образ жизни и поведение:**\n- Ведут одиночный образ жизни\n- Территориальные животные с большими охотничьими участками\n- Активны преимущественно в сумерках\n- Отличные прыгуны - могут прыгать на расстояние до 15 метров\n- Используют хвост для балансировки и как одеяло в холод\n\n### **Питание:**\n- **Основная ",
+          "supportThemeIcons": false,
+          "supportHtml": false
+        }
+      ],
+      "responseId": "response_71d0b3c5-921a-44fa-a61f-9fd3b6170421",
+      "isCanceled": false,
+      "agent": {
+        "extensionId": {
+          "value": "GitHub.copilot-chat",
+          "_lower": "github.copilot-chat"
+        },
+        "extensionVersion": "0.31.3",
+        "publisherDisplayName": "GitHub",
+        "extensionPublisherId": "GitHub",
+        "extensionDisplayName": "GitHub Copilot Chat",
+        "id": "github.copilot.editsAgent",
+        "description": "Edit files in your workspace in agent mode",
+        "when": "config.chat.agent.enabled",
+        "metadata": {
+          "themeIcon": {
+            "id": "tools"
+          },
+          "hasFollowups": false,
+          "supportIssueReporting": false
+        },
+        "name": "agent",
+        "fullName": "GitHub Copilot",
+        "isDefault": true,
+        "locations": ["panel"],
+        "modes": ["agent"],
+        "slashCommands": [
+          {
+            "name": "list"
+          }
+        ],
+        "disambiguation": []
+      },
+      "contentReferences": [],
+      "codeCitations": [],
+      "timestamp": 1759353161760,
+      "modelId": "copilot/claude-sonnet-4"
+    }
+  ]
+}

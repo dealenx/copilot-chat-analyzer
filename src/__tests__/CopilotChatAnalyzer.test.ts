@@ -142,4 +142,109 @@ describe("CopilotChatAnalyzer", () => {
       expect(DialogStatus.IN_PROGRESS).toBe("in_progress");
     });
   });
+
+  describe("Real chat data tests", () => {
+    test("should correctly analyze completed chat", () => {
+      // Данные завершенного чата (упрощенная версия из completed_chat.json)
+      const completedChatData = {
+        requests: [
+          {
+            requestId: "request_962e76d4-743c-490e-9609-c8f65ef52f56",
+            followups: [], // Пустой массив followups означает завершенный диалог
+            result: {
+              timings: {
+                firstProgress: 4056,
+                totalElapsed: 59981,
+              },
+              metadata: {
+                codeBlocks: [],
+              },
+            },
+            isCanceled: false,
+          },
+        ],
+      };
+
+      // Тестируем количество запросов
+      expect(analyzer.getRequestsCount(completedChatData)).toBe(1);
+
+      // Тестируем статус диалога
+      expect(analyzer.getDialogStatus(completedChatData)).toBe(
+        DialogStatus.COMPLETED
+      );
+
+      // Тестируем детали статуса
+      const details = analyzer.getDialogStatusDetails(completedChatData);
+      expect(details.status).toBe(DialogStatus.COMPLETED);
+      expect(details.statusText).toBe("Диалог завершен успешно");
+      expect(details.hasResult).toBe(true);
+      expect(details.hasFollowups).toBe(true);
+      expect(details.isCanceled).toBe(false);
+      expect(details.lastRequestId).toBe(
+        "request_962e76d4-743c-490e-9609-c8f65ef52f56"
+      );
+    });
+
+    test("should correctly analyze in-progress chat", () => {
+      // Данные чата в процессе (упрощенная версия из in_progress_chat.json)
+      const inProgressChatData = {
+        requests: [
+          {
+            requestId: "request_962e76d4-743c-490e-9609-c8f65ef52f56",
+            // Нет поля followups = диалог в процессе
+            isCanceled: false,
+          },
+        ],
+      };
+
+      // Тестируем количество запросов
+      expect(analyzer.getRequestsCount(inProgressChatData)).toBe(1);
+
+      // Тестируем статус диалога
+      expect(analyzer.getDialogStatus(inProgressChatData)).toBe(
+        DialogStatus.IN_PROGRESS
+      );
+
+      // Тестируем детали статуса
+      const details = analyzer.getDialogStatusDetails(inProgressChatData);
+      expect(details.status).toBe(DialogStatus.IN_PROGRESS);
+      expect(details.statusText).toBe("Диалог в процессе выполнения");
+      expect(details.hasResult).toBe(false);
+      expect(details.hasFollowups).toBe(false);
+      expect(details.isCanceled).toBe(false);
+      expect(details.lastRequestId).toBe(
+        "request_962e76d4-743c-490e-9609-c8f65ef52f56"
+      );
+    });
+
+    test("should correctly analyze canceled chat", () => {
+      // Данные отмененного чата
+      const canceledChatData = {
+        requests: [
+          {
+            requestId: "request_canceled_123",
+            isCanceled: true, // Отмененный запрос
+            result: null,
+          },
+        ],
+      };
+
+      // Тестируем количество запросов
+      expect(analyzer.getRequestsCount(canceledChatData)).toBe(1);
+
+      // Тестируем статус диалога
+      expect(analyzer.getDialogStatus(canceledChatData)).toBe(
+        DialogStatus.CANCELED
+      );
+
+      // Тестируем детали статуса
+      const details = analyzer.getDialogStatusDetails(canceledChatData);
+      expect(details.status).toBe(DialogStatus.CANCELED);
+      expect(details.statusText).toBe("Диалог был отменен");
+      expect(details.hasResult).toBe(false);
+      expect(details.hasFollowups).toBe(false);
+      expect(details.isCanceled).toBe(true);
+      expect(details.lastRequestId).toBe("request_canceled_123");
+    });
+  });
 });
