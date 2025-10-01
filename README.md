@@ -1,16 +1,13 @@
 # Copilot Chat Analyzer
 
-Библиотека для анализа экспортированных чатов GitHub Copilot с поддержкой SOLID архитектуры.
+Простая библиотека для анализа экспортированных чатов GitHub Copilot.
 
-## 🆕 Новая SOLID Архитектура
+## Особенности
 
-Начиная с версии 0.0.1, библиотека полностью переписана с использованием принципов SOLID:
-
-- **S**ingle Responsibility: каждый класс отвечает за одну функциональность
-- **O**pen/Closed: легко расширяется новыми анализаторами без изменения существующего кода
-- **L**iskov Substitution: все анализаторы реализуют соответствующие интерфейсы
-- **I**nterface Segregation: интерфейсы разделены по назначению
-- **D**ependency Inversion: зависимости инжектируются через интерфейсы
+- 📊 Подсчет количества запросов в диалоге
+- 🔍 Определение статуса диалога (завершен, отменен, в процессе)
+- 📝 Получение детальной информации о статусе
+- 🚀 Простой и понятный API
 
 ## Установка
 
@@ -19,9 +16,9 @@ npm install
 npm run build
 ```
 
-## 🚀 Новый API (Рекомендуется)
+## 🚀 Использование
 
-### Использование класса CopilotChatAnalyzer
+### Основной API
 
 ```javascript
 import CopilotChatAnalyzer from "./dist/index.mjs";
@@ -29,91 +26,16 @@ import CopilotChatAnalyzer from "./dist/index.mjs";
 const chatData = JSON.parse(readFileSync("chat.json", "utf8"));
 const analyzer = new CopilotChatAnalyzer();
 
-// Получить имя пользователя
-const username = analyzer.analyze(chatData);
-
-// Получить информацию о всех пользователях
-const users = analyzer.getChatUsers(chatData);
-console.log(users.requester); // имя пользователя
-console.log(users.responder); // "GitHub Copilot"
-
 // Подсчет запросов
 const requestsCount = analyzer.getRequestsCount(chatData);
+console.log(`Количество запросов: ${requestsCount}`);
 
 // Определение статуса диалога
 const status = analyzer.getDialogStatus(chatData);
-const statusDetails = analyzer.getDialogStatusDetails(chatData);
-```
+console.log(`Статус: ${status}`); // 'completed', 'canceled', 'in_progress'
 
-### Dependency Injection (Продвинутое использование)
-
-Вы можете внедрить собственные реализации анализаторов:
-
-```javascript
-import CopilotChatAnalyzer from "./dist/index.mjs";
-
-// Создайте кастомные анализаторы, реализующие соответствующие интерфейсы
-class CustomUserExtractor {
-  // Ваша кастомная логика
-}
-
-class CustomStatusAnalyzer {
-  // Ваша кастомная логика
-}
-
-// Внедрите зависимости
-const analyzer = new CopilotChatAnalyzer(
-  undefined, // validator (по умолчанию)
-  new CustomUserExtractor(validator),
-  undefined, // requestAnalyzer (по умолчанию)
-  new CustomStatusAnalyzer(validator, requestAnalyzer)
-);
-```
-
-## 🔄 Старый API (Deprecated, но все еще работает)
-
-Для обратной совместимости старые функции все еще доступны:
-
-### 1. Анализ пользователей
-
-```javascript
-import copilotChatAnalyze, { getChatUsers } from "./dist/index.mjs";
-
-const chatData = JSON.parse(readFileSync("chat.json", "utf8"));
-
-// Получить имя пользователя
-const username = copilotChatAnalyze(chatData);
-
-// Получить информацию о всех пользователях
-const users = getChatUsers(chatData);
-console.log(users.requester); // имя пользователя
-console.log(users.responder); // "GitHub Copilot"
-```
-
-### 2. Подсчет запросов
-
-```javascript
-import { getRequestsCount } from "./dist/index.mjs";
-
-const requestsCount = getRequestsCount(chatData);
-console.log(`Количество запросов: ${requestsCount}`);
-```
-
-### 3. Определение статуса диалога ⭐ NEW
-
-```javascript
-import {
-  getDialogStatus,
-  getDialogStatusDetails,
-  DialogStatus,
-} from "./dist/index.mjs";
-
-// Получить статус диалога
-const status = getDialogStatus(chatData);
-console.log(status); // 'completed', 'canceled', или 'in_progress'
-
-// Получить детальную информацию
-const details = getDialogStatusDetails(chatData);
+// Получение детальной информации о статусе
+const details = analyzer.getDialogStatusDetails(chatData);
 console.log({
   status: details.status,
   statusText: details.statusText,
@@ -143,20 +65,15 @@ console.log({
 
 ## Примеры использования
 
-Смотрите файлы в папке `examples/chat-example/`:
+Смотрите файлы в папке `examples/parse-export-chat-json/`:
 
 - `index.js` - основной пример использования всех функций
-- `test-status.js` - пример тестирования определения статуса
 
-## Запуск примеров
+## Запуск примера
 
 ```bash
-# Основной пример
-cd examples/chat-example
+cd examples/parse-export-chat-json
 node index.js
-
-# Тестирование статусов
-node test-status.js
 ```
 
 ## Структура экспорта чата
@@ -165,8 +82,6 @@ node test-status.js
 
 ```json
 {
-  "requesterUsername": "username",
-  "responderUsername": "GitHub Copilot",
   "requests": [
     {
       "requestId": "...",
@@ -184,11 +99,18 @@ node test-status.js
 
 ```typescript
 interface CopilotChatData {
-  requesterUsername?: string;
-  responderUsername?: string;
   requests?: any[];
   [key: string]: any;
 }
 
-type DialogStatus = "completed" | "canceled" | "in_progress";
+type DialogStatusType = "completed" | "canceled" | "in_progress";
+
+interface DialogStatusDetails {
+  status: DialogStatusType;
+  statusText: string;
+  hasResult: boolean;
+  hasFollowups: boolean;
+  isCanceled: boolean;
+  lastRequestId?: string;
+}
 ```
