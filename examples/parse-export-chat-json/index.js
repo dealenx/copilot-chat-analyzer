@@ -1,13 +1,13 @@
 import { readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import copilotChatAnalyze, { 
-  getChatUsers, 
-  getRequestsCount, 
-  getDialogStatus, 
-  getDialogStatusDetails, 
-  DialogStatus 
-} from '../../dist/index.mjs';
+import copilotChatAnalyze, {
+  getChatUsers,
+  getRequestsCount,
+  getDialogStatus,
+  getDialogStatusDetails,
+  DialogStatus
+} from 'copilot-chat-analyzer';
 
 // Получаем путь к текущей директории
 const __filename = fileURLToPath(import.meta.url);
