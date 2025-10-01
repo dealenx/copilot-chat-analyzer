@@ -1,17 +1,6 @@
 # Copilot Chat Analyzer
 
-[![Tes## 📤 Как экспортировать чат
-
-Для получения данных чата из GitHub Copilot Chat:
-
-1. **Откройте VS Code** с установленным GitHub Copilot Chat
-2. **Откройте панель чата** (обычно справа или через `Ctrl+Shift+I`)
-3. **Ведите диалог** с Copilot
-4. **Нажмите `F1`** для открытия Command Palette
-5. **Введите и выберите** `"Export Chat"`
-6. **Сохраните файл** в формате JSON
-
-💡 **Совет:** Чат можно экспортировать в любом состоянии - как во время диалога, так и после его завершения. Библиотека автоматически определит текущий статус.ithub.com/dealenx/copilot-chat-analyzer/actions/workflows/test.yml/badge.svg)](https://github.com/dealenx/copilot-chat-analyzer/actions/workflows/test.yml)
+[![Test](https://github.com/dealenx/copilot-chat-analyzer/actions/workflows/test.yml/badge.svg)](https://github.com/dealenx/copilot-chat-analyzer/actions/workflows/test.yml)
 [![Code Quality](https://github.com/dealenx/copilot-chat-analyzer/actions/workflows/quality.yml/badge.svg)](https://github.com/dealenx/copilot-chat-analyzer/actions/workflows/quality.yml)
 [![npm version](https://badge.fury.io/js/copilot-chat-analyzer.svg)](https://badge.fury.io/js/copilot-chat-analyzer)
 
@@ -42,7 +31,7 @@ yarn add copilot-chat-analyzer
 pnpm add copilot-chat-analyzer
 ```
 
-## � Как экспортировать чат
+## Как экспортировать чат
 
 Для получения данных чата из GitHub Copilot Chat:
 
@@ -53,7 +42,7 @@ pnpm add copilot-chat-analyzer
 5. **Введите и выберите** `"Export Chat"`
 6. **Сохраните файл** в формате JSON
 
-## �🚀 Использование
+## 🚀 Использование
 
 ### Основной API
 
