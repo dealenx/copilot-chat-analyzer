@@ -12,8 +12,19 @@
 ## Установка
 
 ```bash
-npm install
-npm run build
+npm install copilot-chat-analyzer
+```
+
+Или с yarn:
+
+```bash
+yarn add copilot-chat-analyzer
+```
+
+Или с pnpm:
+
+```bash
+pnpm add copilot-chat-analyzer
 ```
 
 ## 🚀 Использование
@@ -21,7 +32,8 @@ npm run build
 ### Основной API
 
 ```javascript
-import CopilotChatAnalyzer from "./dist/index.mjs";
+import CopilotChatAnalyzer from "copilot-chat-analyzer";
+import { readFileSync } from "fs";
 
 const chatData = JSON.parse(readFileSync("chat.json", "utf8"));
 const analyzer = new CopilotChatAnalyzer();

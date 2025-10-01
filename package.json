@@ -2,6 +2,18 @@
   "name": "copilot-chat-analyzer",
   "private": false,
   "version": "0.0.1",
+  "description": "Simple library for analyzing exported GitHub Copilot chats",
+  "keywords": ["copilot", "chat", "analyzer", "github", "typescript"],
+  "author": "dealenx",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dealenx/copilot-chat-analyzer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dealenx/copilot-chat-analyzer/issues"
+  },
+  "homepage": "https://github.com/dealenx/copilot-chat-analyzer#readme",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

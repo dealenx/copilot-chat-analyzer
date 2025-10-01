@@ -1,0 +1,38 @@
+# Source files
+src/
+examples/
+*.ts
+!*.d.ts
+
+# Build configuration
+tsconfig.json
+tsup.config.ts
+mise.toml
+SOLID_ARCHITECTURE.md
+
+# Development files
+.git/
+.gitignore
+node_modules/
+pnpm-lock.yaml
+
+# Test files
+test/
+tests/
+**/*.test.*
+**/*.spec.*
+
+# Documentation drafts
+docs/
+.md files except README.md
+!README.md
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
