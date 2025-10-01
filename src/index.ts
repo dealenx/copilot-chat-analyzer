@@ -1,3 +1,5 @@
+﻿// COPILOT CHAT ANALYZER - SOLID Architecture Implementation
+
 interface CopilotChatData {
   requesterUsername?: string;
   responderUsername?: string;
@@ -5,144 +7,248 @@ interface CopilotChatData {
   [key: string]: any;
 }
 
-/**
- * Анализирует данные чата Copilot и извлекает requesterUsername
- * @param chatData - Объект с данными чата
- * @returns requesterUsername или null если не найден
- */
-export function copilotChatAnalyze(chatData: CopilotChatData): string | null {
-  if (!chatData || typeof chatData !== "object") {
-    return null;
-  }
-
-  return chatData.requesterUsername || null;
-}
-
-/**
- * Получает полную информацию о пользователях из чата
- * @param chatData - Объект с данными чата
- * @returns Объект с информацией о пользователях
- */
-export function getChatUsers(chatData: CopilotChatData): {
+interface ChatUsers {
   requester: string | null;
   responder: string | null;
-} {
-  if (!chatData || typeof chatData !== "object") {
-    return { requester: null, responder: null };
-  }
-
-  return {
-    requester: chatData.requesterUsername || null,
-    responder: chatData.responderUsername || null,
-  };
 }
 
-/**
- * Подсчитывает количество запросов в чате
- * @param chatData - Объект с данными чата
- * @returns Количество запросов
- */
-export function getRequestsCount(chatData: CopilotChatData): number {
-  if (!chatData || !Array.isArray(chatData.requests)) {
-    return 0;
-  }
-
-  return chatData.requests.length;
-}
-
-/**
- * Статусы диалога
- */
-export const DialogStatus = {
-  COMPLETED: "completed", // Завершен
-  CANCELED: "canceled", // Отменен
-  IN_PROGRESS: "in_progress", // В процессе
-} as const;
-
-export type DialogStatus = (typeof DialogStatus)[keyof typeof DialogStatus];
-
-/**
- * Определяет статус последнего запроса в диалоге
- * @param chatData - Объект с данными чата
- * @returns Статус диалога
- */
-export function getDialogStatus(chatData: CopilotChatData): DialogStatus {
-  if (
-    !chatData ||
-    !Array.isArray(chatData.requests) ||
-    chatData.requests.length === 0
-  ) {
-    return DialogStatus.IN_PROGRESS;
-  }
-
-  const lastRequest = chatData.requests[chatData.requests.length - 1];
-
-  // Проверяем наличие поля isCanceled
-  if (lastRequest.isCanceled === true) {
-    return DialogStatus.CANCELED;
-  }
-
-  // Проверяем наличие followups - если есть пустой массив, то диалог завершен
-  if ("followups" in lastRequest && Array.isArray(lastRequest.followups)) {
-    if (lastRequest.followups.length === 0) {
-      return DialogStatus.COMPLETED;
-    }
-  }
-
-  // Если нет поля followups, значит диалог еще в процессе
-  if (!("followups" in lastRequest)) {
-    return DialogStatus.IN_PROGRESS;
-  }
-
-  return DialogStatus.IN_PROGRESS;
-}
-
-/**
- * Получает детальную информацию о статусе диалога
- * @param chatData - Объект с данными чата
- * @returns Объект с детальной информацией о статусе
- */
-export function getDialogStatusDetails(chatData: CopilotChatData): {
-  status: DialogStatus;
+interface DialogStatusDetails {
+  status: DialogStatusType;
   statusText: string;
   hasResult: boolean;
   hasFollowups: boolean;
   isCanceled: boolean;
   lastRequestId?: string;
-} {
-  const status = getDialogStatus(chatData);
-
-  if (
-    !chatData ||
-    !Array.isArray(chatData.requests) ||
-    chatData.requests.length === 0
-  ) {
-    return {
-      status: DialogStatus.IN_PROGRESS,
-      statusText: "Нет запросов",
-      hasResult: false,
-      hasFollowups: false,
-      isCanceled: false,
-    };
-  }
-
-  const lastRequest = chatData.requests[chatData.requests.length - 1];
-
-  const statusTexts = {
-    [DialogStatus.COMPLETED]: "Диалог завершен успешно",
-    [DialogStatus.CANCELED]: "Диалог был отменен",
-    [DialogStatus.IN_PROGRESS]: "Диалог в процессе выполнения",
-  };
-
-  return {
-    status,
-    statusText: statusTexts[status],
-    hasResult: "result" in lastRequest && lastRequest.result !== null,
-    hasFollowups: "followups" in lastRequest,
-    isCanceled: lastRequest.isCanceled === true,
-    lastRequestId: lastRequest.requestId,
-  };
 }
 
-// Экспорт по умолчанию для основной функции
-export default copilotChatAnalyze;
+export const DialogStatus = {
+  COMPLETED: "completed",
+  CANCELED: "canceled",
+  IN_PROGRESS: "in_progress",
+} as const;
+
+export type DialogStatusType = (typeof DialogStatus)[keyof typeof DialogStatus];
+
+interface IChatDataValidator {
+  isValidChatData(chatData: any): boolean;
+  hasRequests(chatData: CopilotChatData): boolean;
+}
+
+interface IUserInfoExtractor {
+  getRequesterUsername(chatData: CopilotChatData): string | null;
+  getChatUsers(chatData: CopilotChatData): ChatUsers;
+}
+
+interface IRequestAnalyzer {
+  getRequestsCount(chatData: CopilotChatData): number;
+  getLastRequest(chatData: CopilotChatData): any | null;
+}
+
+interface IDialogStatusAnalyzer {
+  getDialogStatus(chatData: CopilotChatData): DialogStatusType;
+  getDialogStatusDetails(chatData: CopilotChatData): DialogStatusDetails;
+}
+
+class ChatDataValidator implements IChatDataValidator {
+  isValidChatData(chatData: any): boolean {
+    return chatData && typeof chatData === "object";
+  }
+
+  hasRequests(chatData: CopilotChatData): boolean {
+    return Array.isArray(chatData.requests) && chatData.requests.length > 0;
+  }
+}
+
+class UserInfoExtractor implements IUserInfoExtractor {
+  private validator: IChatDataValidator;
+
+  constructor(validator: IChatDataValidator) {
+    this.validator = validator;
+  }
+
+  getRequesterUsername(chatData: CopilotChatData): string | null {
+    if (!this.validator.isValidChatData(chatData)) {
+      return null;
+    }
+    return chatData.requesterUsername || null;
+  }
+
+  getChatUsers(chatData: CopilotChatData): ChatUsers {
+    if (!this.validator.isValidChatData(chatData)) {
+      return { requester: null, responder: null };
+    }
+
+    return {
+      requester: chatData.requesterUsername || null,
+      responder: chatData.responderUsername || null,
+    };
+  }
+}
+
+class RequestAnalyzer implements IRequestAnalyzer {
+  private validator: IChatDataValidator;
+
+  constructor(validator: IChatDataValidator) {
+    this.validator = validator;
+  }
+
+  getRequestsCount(chatData: CopilotChatData): number {
+    if (
+      !this.validator.isValidChatData(chatData) ||
+      !Array.isArray(chatData.requests)
+    ) {
+      return 0;
+    }
+    return chatData.requests.length;
+  }
+
+  getLastRequest(chatData: CopilotChatData): any | null {
+    if (!this.validator.hasRequests(chatData)) {
+      return null;
+    }
+    return chatData.requests![chatData.requests!.length - 1];
+  }
+}
+
+class DialogStatusAnalyzer implements IDialogStatusAnalyzer {
+  private validator: IChatDataValidator;
+  private requestAnalyzer: IRequestAnalyzer;
+
+  constructor(
+    validator: IChatDataValidator,
+    requestAnalyzer: IRequestAnalyzer
+  ) {
+    this.validator = validator;
+    this.requestAnalyzer = requestAnalyzer;
+  }
+
+  getDialogStatus(chatData: CopilotChatData): DialogStatusType {
+    if (!this.validator.hasRequests(chatData)) {
+      return DialogStatus.IN_PROGRESS;
+    }
+
+    const lastRequest = this.requestAnalyzer.getLastRequest(chatData);
+    if (!lastRequest) {
+      return DialogStatus.IN_PROGRESS;
+    }
+
+    if (lastRequest.isCanceled === true) {
+      return DialogStatus.CANCELED;
+    }
+
+    if ("followups" in lastRequest && Array.isArray(lastRequest.followups)) {
+      if (lastRequest.followups.length === 0) {
+        return DialogStatus.COMPLETED;
+      }
+    }
+
+    if (!("followups" in lastRequest)) {
+      return DialogStatus.IN_PROGRESS;
+    }
+
+    return DialogStatus.IN_PROGRESS;
+  }
+
+  getDialogStatusDetails(chatData: CopilotChatData): DialogStatusDetails {
+    const status = this.getDialogStatus(chatData);
+
+    if (!this.validator.hasRequests(chatData)) {
+      return {
+        status: DialogStatus.IN_PROGRESS,
+        statusText: "Нет запросов",
+        hasResult: false,
+        hasFollowups: false,
+        isCanceled: false,
+      };
+    }
+
+    const lastRequest = this.requestAnalyzer.getLastRequest(chatData);
+
+    const statusTexts = {
+      [DialogStatus.COMPLETED]: "Диалог завершен успешно",
+      [DialogStatus.CANCELED]: "Диалог был отменен",
+      [DialogStatus.IN_PROGRESS]: "Диалог в процессе выполнения",
+    };
+
+    return {
+      status,
+      statusText: statusTexts[status],
+      hasResult:
+        lastRequest && "result" in lastRequest && lastRequest.result !== null,
+      hasFollowups: lastRequest && "followups" in lastRequest,
+      isCanceled: lastRequest && lastRequest.isCanceled === true,
+      lastRequestId: lastRequest?.requestId,
+    };
+  }
+}
+
+export class CopilotChatAnalyzer {
+  private validator: IChatDataValidator;
+  private userExtractor: IUserInfoExtractor;
+  private requestAnalyzer: IRequestAnalyzer;
+  private statusAnalyzer: IDialogStatusAnalyzer;
+
+  constructor(
+    validator?: IChatDataValidator,
+    userExtractor?: IUserInfoExtractor,
+    requestAnalyzer?: IRequestAnalyzer,
+    statusAnalyzer?: IDialogStatusAnalyzer
+  ) {
+    this.validator = validator || new ChatDataValidator();
+    this.userExtractor = userExtractor || new UserInfoExtractor(this.validator);
+    this.requestAnalyzer =
+      requestAnalyzer || new RequestAnalyzer(this.validator);
+    this.statusAnalyzer =
+      statusAnalyzer ||
+      new DialogStatusAnalyzer(this.validator, this.requestAnalyzer);
+  }
+
+  analyze(chatData: CopilotChatData): string | null {
+    return this.userExtractor.getRequesterUsername(chatData);
+  }
+
+  getChatUsers(chatData: CopilotChatData): ChatUsers {
+    return this.userExtractor.getChatUsers(chatData);
+  }
+
+  getRequestsCount(chatData: CopilotChatData): number {
+    return this.requestAnalyzer.getRequestsCount(chatData);
+  }
+
+  getDialogStatus(chatData: CopilotChatData): DialogStatusType {
+    return this.statusAnalyzer.getDialogStatus(chatData);
+  }
+
+  getDialogStatusDetails(chatData: CopilotChatData): DialogStatusDetails {
+    return this.statusAnalyzer.getDialogStatusDetails(chatData);
+  }
+}
+
+export function copilotChatAnalyze(chatData: CopilotChatData): string | null {
+  const analyzer = new CopilotChatAnalyzer();
+  return analyzer.analyze(chatData);
+}
+
+export function getChatUsers(chatData: CopilotChatData): ChatUsers {
+  const analyzer = new CopilotChatAnalyzer();
+  return analyzer.getChatUsers(chatData);
+}
+
+export function getRequestsCount(chatData: CopilotChatData): number {
+  const analyzer = new CopilotChatAnalyzer();
+  return analyzer.getRequestsCount(chatData);
+}
+
+export function getDialogStatus(chatData: CopilotChatData): DialogStatusType {
+  const analyzer = new CopilotChatAnalyzer();
+  return analyzer.getDialogStatus(chatData);
+}
+
+export function getDialogStatusDetails(
+  chatData: CopilotChatData
+): DialogStatusDetails {
+  const analyzer = new CopilotChatAnalyzer();
+  return analyzer.getDialogStatusDetails(chatData);
+}
+
+export default CopilotChatAnalyzer;
