@@ -1,15 +1,6 @@
-﻿// COPILOT CHAT ANALYZER - SOLID Architecture Implementation
-
-interface CopilotChatData {
-  requesterUsername?: string;
-  responderUsername?: string;
+﻿interface CopilotChatData {
   requests?: any[];
   [key: string]: any;
-}
-
-interface ChatUsers {
-  requester: string | null;
-  responder: string | null;
 }
 
 interface DialogStatusDetails {
@@ -34,11 +25,6 @@ interface IChatDataValidator {
   hasRequests(chatData: CopilotChatData): boolean;
 }
 
-interface IUserInfoExtractor {
-  getRequesterUsername(chatData: CopilotChatData): string | null;
-  getChatUsers(chatData: CopilotChatData): ChatUsers;
-}
-
 interface IRequestAnalyzer {
   getRequestsCount(chatData: CopilotChatData): number;
   getLastRequest(chatData: CopilotChatData): any | null;
@@ -56,32 +42,6 @@ class ChatDataValidator implements IChatDataValidator {
 
   hasRequests(chatData: CopilotChatData): boolean {
     return Array.isArray(chatData.requests) && chatData.requests.length > 0;
-  }
-}
-
-class UserInfoExtractor implements IUserInfoExtractor {
-  private validator: IChatDataValidator;
-
-  constructor(validator: IChatDataValidator) {
-    this.validator = validator;
-  }
-
-  getRequesterUsername(chatData: CopilotChatData): string | null {
-    if (!this.validator.isValidChatData(chatData)) {
-      return null;
-    }
-    return chatData.requesterUsername || null;
-  }
-
-  getChatUsers(chatData: CopilotChatData): ChatUsers {
-    if (!this.validator.isValidChatData(chatData)) {
-      return { requester: null, responder: null };
-    }
-
-    return {
-      requester: chatData.requesterUsername || null,
-      responder: chatData.responderUsername || null,
-    };
   }
 }
 
@@ -184,31 +144,20 @@ class DialogStatusAnalyzer implements IDialogStatusAnalyzer {
 
 export class CopilotChatAnalyzer {
   private validator: IChatDataValidator;
-  private userExtractor: IUserInfoExtractor;
   private requestAnalyzer: IRequestAnalyzer;
   private statusAnalyzer: IDialogStatusAnalyzer;
 
   constructor(
     validator?: IChatDataValidator,
-    userExtractor?: IUserInfoExtractor,
     requestAnalyzer?: IRequestAnalyzer,
     statusAnalyzer?: IDialogStatusAnalyzer
   ) {
     this.validator = validator || new ChatDataValidator();
-    this.userExtractor = userExtractor || new UserInfoExtractor(this.validator);
     this.requestAnalyzer =
       requestAnalyzer || new RequestAnalyzer(this.validator);
     this.statusAnalyzer =
       statusAnalyzer ||
       new DialogStatusAnalyzer(this.validator, this.requestAnalyzer);
-  }
-
-  analyze(chatData: CopilotChatData): string | null {
-    return this.userExtractor.getRequesterUsername(chatData);
-  }
-
-  getChatUsers(chatData: CopilotChatData): ChatUsers {
-    return this.userExtractor.getChatUsers(chatData);
   }
 
   getRequestsCount(chatData: CopilotChatData): number {

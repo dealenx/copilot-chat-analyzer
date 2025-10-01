@@ -12,13 +12,6 @@ console.log('COPILOT CHAT ANALYZER - SOLID Architecture');
 
 const analyzer = new CopilotChatAnalyzer();
 
-const username = analyzer.analyze(chatData);
-console.log('Username:', username || 'not found');
-
-const users = analyzer.getChatUsers(chatData);
-console.log('Requester:', users.requester || 'unknown');
-console.log('Responder:', users.responder || 'unknown');
-
 const requestCount = analyzer.getRequestsCount(chatData);
 console.log('Requests count:', requestCount);
 
