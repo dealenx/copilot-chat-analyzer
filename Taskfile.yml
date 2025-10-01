@@ -1,7 +1,5 @@
 version: "3"
 
-dotenv: [".env"]
-
 tasks:
   default:
     cmds:
@@ -20,8 +18,15 @@ tasks:
     run: once
     status:
       - test -d node_modules
+
+  example:
+    desc: "Run parse-export-chat-json example"
+    dir: examples/parse-export-chat-json
+    cmds:
+      - pnpm install
+      - node index.js
     deps:
-      - mise
+      - build
 
   mise:
     desc: "Mise installation"
