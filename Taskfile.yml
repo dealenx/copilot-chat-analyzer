@@ -1,0 +1,28 @@
+version: "3"
+
+dotenv: [".env"]
+
+tasks:
+  default:
+    cmds:
+      - task: build
+
+    deps:
+      - install
+
+  build:
+    cmd: pnpm run build
+    deps:
+      - install
+
+  install:
+    cmd: pnpm install
+    run: once
+    status:
+      - test -d node_modules
+    deps:
+      - mise
+
+  mise:
+    desc: "Mise installation"
+    cmd: mise install
