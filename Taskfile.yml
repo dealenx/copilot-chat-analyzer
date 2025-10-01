@@ -28,6 +28,18 @@ tasks:
     deps:
       - build
 
+  test:
+    desc: "Run tests"
+    cmd: pnpm test
+    deps:
+      - install
+
+  test:coverage:
+    desc: "Run tests with coverage report"
+    cmd: pnpm test:coverage
+    deps:
+      - install
+
   mise:
     desc: "Mise installation"
     cmd: mise install
