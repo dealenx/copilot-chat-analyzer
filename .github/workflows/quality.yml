@@ -38,5 +38,7 @@ jobs:
         run: |
           echo "Checking dist files..."
           ls -la dist/
-          echo "Verifying exports..."
-          node -e "console.log(require('./dist/index.js'))"
+          echo "Verifying CommonJS export..."
+          node -e "const { CopilotChatAnalyzer } = require('./dist/index.cjs'); console.log('✅ CommonJS import successful:', typeof CopilotChatAnalyzer);"
+          echo "Verifying ES Module export..."
+          node -e "import('./dist/index.mjs').then(m => console.log('✅ ESM import successful:', typeof m.CopilotChatAnalyzer))"
