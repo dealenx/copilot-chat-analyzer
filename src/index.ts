@@ -224,31 +224,4 @@ export class CopilotChatAnalyzer {
   }
 }
 
-export function copilotChatAnalyze(chatData: CopilotChatData): string | null {
-  const analyzer = new CopilotChatAnalyzer();
-  return analyzer.analyze(chatData);
-}
-
-export function getChatUsers(chatData: CopilotChatData): ChatUsers {
-  const analyzer = new CopilotChatAnalyzer();
-  return analyzer.getChatUsers(chatData);
-}
-
-export function getRequestsCount(chatData: CopilotChatData): number {
-  const analyzer = new CopilotChatAnalyzer();
-  return analyzer.getRequestsCount(chatData);
-}
-
-export function getDialogStatus(chatData: CopilotChatData): DialogStatusType {
-  const analyzer = new CopilotChatAnalyzer();
-  return analyzer.getDialogStatus(chatData);
-}
-
-export function getDialogStatusDetails(
-  chatData: CopilotChatData
-): DialogStatusDetails {
-  const analyzer = new CopilotChatAnalyzer();
-  return analyzer.getDialogStatusDetails(chatData);
-}
-
 export default CopilotChatAnalyzer;
