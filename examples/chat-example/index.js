@@ -27,12 +27,3 @@ console.log('  • Отвечающий:', users.responder);
 const requestsCount = getRequestsCount(chatData);
 console.log('📊 Количество запросов в чате:', requestsCount);
 
-// Пример с пустым объектом
-console.log('\n=== Тест с пустым объектом ===');
-const emptyResult = copilotChatAnalyze({});
-console.log('Результат с пустым объектом:', emptyResult);
-
-// Пример с некорректными данными
-console.log('\n=== Тест с некорректными данными ===');
-const nullResult = copilotChatAnalyze(null);
-console.log('Результат с null:', nullResult);
