@@ -1,5 +1,9 @@
 # Copilot Chat Analyzer
 
+[![Test](https://github.com/dealenx/copilot-chat-analyzer/actions/workflows/test.yml/badge.svg)](https://github.com/dealenx/copilot-chat-analyzer/actions/workflows/test.yml)
+[![Code Quality](https://github.com/dealenx/copilot-chat-analyzer/actions/workflows/quality.yml/badge.svg)](https://github.com/dealenx/copilot-chat-analyzer/actions/workflows/quality.yml)
+[![npm version](https://badge.fury.io/js/copilot-chat-analyzer.svg)](https://badge.fury.io/js/copilot-chat-analyzer)
+
 Простая библиотека для анализа экспортированных чатов GitHub Copilot.
 
 ## Особенности
