@@ -1,4 +1,6 @@
-﻿interface CopilotChatData {
+﻿// COPILOT CHAT ANALYZER - Simplified Implementation
+
+interface CopilotChatData {
   requests?: any[];
   [key: string]: any;
 }
@@ -20,74 +22,31 @@ export const DialogStatus = {
 
 export type DialogStatusType = (typeof DialogStatus)[keyof typeof DialogStatus];
 
-interface IChatDataValidator {
-  isValidChatData(chatData: any): boolean;
-  hasRequests(chatData: CopilotChatData): boolean;
-}
-
-interface IRequestAnalyzer {
-  getRequestsCount(chatData: CopilotChatData): number;
-  getLastRequest(chatData: CopilotChatData): any | null;
-}
-
-interface IDialogStatusAnalyzer {
-  getDialogStatus(chatData: CopilotChatData): DialogStatusType;
-  getDialogStatusDetails(chatData: CopilotChatData): DialogStatusDetails;
-}
-
-class ChatDataValidator implements IChatDataValidator {
-  isValidChatData(chatData: any): boolean {
-    return chatData && typeof chatData === "object";
-  }
-
-  hasRequests(chatData: CopilotChatData): boolean {
-    return Array.isArray(chatData.requests) && chatData.requests.length > 0;
-  }
-}
-
-class RequestAnalyzer implements IRequestAnalyzer {
-  private validator: IChatDataValidator;
-
-  constructor(validator: IChatDataValidator) {
-    this.validator = validator;
-  }
-
+export class CopilotChatAnalyzer {
   getRequestsCount(chatData: CopilotChatData): number {
-    if (
-      !this.validator.isValidChatData(chatData) ||
-      !Array.isArray(chatData.requests)
-    ) {
+    if (!chatData || !Array.isArray(chatData.requests)) {
       return 0;
     }
     return chatData.requests.length;
   }
 
-  getLastRequest(chatData: CopilotChatData): any | null {
-    if (!this.validator.hasRequests(chatData)) {
+  private hasRequests(chatData: CopilotChatData): boolean {
+    return Array.isArray(chatData.requests) && chatData.requests.length > 0;
+  }
+
+  private getLastRequest(chatData: CopilotChatData): any | null {
+    if (!this.hasRequests(chatData)) {
       return null;
     }
     return chatData.requests![chatData.requests!.length - 1];
   }
-}
-
-class DialogStatusAnalyzer implements IDialogStatusAnalyzer {
-  private validator: IChatDataValidator;
-  private requestAnalyzer: IRequestAnalyzer;
-
-  constructor(
-    validator: IChatDataValidator,
-    requestAnalyzer: IRequestAnalyzer
-  ) {
-    this.validator = validator;
-    this.requestAnalyzer = requestAnalyzer;
-  }
 
   getDialogStatus(chatData: CopilotChatData): DialogStatusType {
-    if (!this.validator.hasRequests(chatData)) {
+    if (!this.hasRequests(chatData)) {
       return DialogStatus.IN_PROGRESS;
     }
 
-    const lastRequest = this.requestAnalyzer.getLastRequest(chatData);
+    const lastRequest = this.getLastRequest(chatData);
     if (!lastRequest) {
       return DialogStatus.IN_PROGRESS;
     }
@@ -112,7 +71,7 @@ class DialogStatusAnalyzer implements IDialogStatusAnalyzer {
   getDialogStatusDetails(chatData: CopilotChatData): DialogStatusDetails {
     const status = this.getDialogStatus(chatData);
 
-    if (!this.validator.hasRequests(chatData)) {
+    if (!this.hasRequests(chatData)) {
       return {
         status: DialogStatus.IN_PROGRESS,
         statusText: "Нет запросов",
@@ -122,7 +81,7 @@ class DialogStatusAnalyzer implements IDialogStatusAnalyzer {
       };
     }
 
-    const lastRequest = this.requestAnalyzer.getLastRequest(chatData);
+    const lastRequest = this.getLastRequest(chatData);
 
     const statusTexts = {
       [DialogStatus.COMPLETED]: "Диалог завершен успешно",
@@ -139,37 +98,6 @@ class DialogStatusAnalyzer implements IDialogStatusAnalyzer {
       isCanceled: lastRequest && lastRequest.isCanceled === true,
       lastRequestId: lastRequest?.requestId,
     };
-  }
-}
-
-export class CopilotChatAnalyzer {
-  private validator: IChatDataValidator;
-  private requestAnalyzer: IRequestAnalyzer;
-  private statusAnalyzer: IDialogStatusAnalyzer;
-
-  constructor(
-    validator?: IChatDataValidator,
-    requestAnalyzer?: IRequestAnalyzer,
-    statusAnalyzer?: IDialogStatusAnalyzer
-  ) {
-    this.validator = validator || new ChatDataValidator();
-    this.requestAnalyzer =
-      requestAnalyzer || new RequestAnalyzer(this.validator);
-    this.statusAnalyzer =
-      statusAnalyzer ||
-      new DialogStatusAnalyzer(this.validator, this.requestAnalyzer);
-  }
-
-  getRequestsCount(chatData: CopilotChatData): number {
-    return this.requestAnalyzer.getRequestsCount(chatData);
-  }
-
-  getDialogStatus(chatData: CopilotChatData): DialogStatusType {
-    return this.statusAnalyzer.getDialogStatus(chatData);
-  }
-
-  getDialogStatusDetails(chatData: CopilotChatData): DialogStatusDetails {
-    return this.statusAnalyzer.getDialogStatusDetails(chatData);
   }
 }
 

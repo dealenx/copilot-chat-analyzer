@@ -8,7 +8,7 @@ const __dirname = dirname(__filename);
 const chatDataPath = join(__dirname, 'chat.json');
 const chatData = JSON.parse(readFileSync(chatDataPath, 'utf8'));
 
-console.log('COPILOT CHAT ANALYZER - SOLID Architecture');
+console.log('COPILOT CHAT ANALYZER');
 
 const analyzer = new CopilotChatAnalyzer();
 
