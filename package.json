@@ -1,0 +1,18 @@
+{
+  "name": "copilot-chat-analyzer",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "prepare": "npm run build",
+    "test": "your-test-command"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.3",
+    "vite": "^7.1.7"
+  },
+  "dependencies": {
+    "tsup": "^8.5.0"
+  }
+}
