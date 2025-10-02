@@ -1,0 +1,16 @@
+{
+  "requesterUsername": "mimicai-user1",
+  "requesterAvatarIconUri": {
+    "$mid": 1,
+    "path": "/u/231215291",
+    "scheme": "https",
+    "authority": "avatars.githubusercontent.com",
+    "query": "v=4"
+  },
+  "responderUsername": "GitHub Copilot",
+  "responderAvatarIconUri": {
+    "id": "copilot"
+  },
+  "initialLocation": "panel",
+  "requests": []
+}

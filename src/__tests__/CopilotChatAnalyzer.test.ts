@@ -31,9 +31,9 @@ describe("CopilotChatAnalyzer", () => {
   });
 
   describe("getDialogStatus", () => {
-    test("should return IN_PROGRESS for empty requests", () => {
+    test("should return PENDING for empty requests", () => {
       const chatData = { requests: [] };
-      expect(analyzer.getDialogStatus(chatData)).toBe(DialogStatus.IN_PROGRESS);
+      expect(analyzer.getDialogStatus(chatData)).toBe(DialogStatus.PENDING);
     });
 
     test("should return CANCELED when last request is canceled", () => {
@@ -88,14 +88,24 @@ describe("CopilotChatAnalyzer", () => {
       };
       expect(analyzer.getDialogStatus(chatData)).toBe(DialogStatus.COMPLETED);
     });
+
+    test("should return PENDING for chat with no requests property", () => {
+      const chatData = {};
+      expect(analyzer.getDialogStatus(chatData)).toBe(DialogStatus.PENDING);
+    });
+
+    test("should return PENDING for chat with undefined requests", () => {
+      const chatData = { requests: undefined };
+      expect(analyzer.getDialogStatus(chatData)).toBe(DialogStatus.PENDING);
+    });
   });
 
   describe("getDialogStatusDetails", () => {
     test("should return correct details for empty chat data", () => {
       const details = analyzer.getDialogStatusDetails({});
 
-      expect(details.status).toBe(DialogStatus.IN_PROGRESS);
-      expect(details.statusText).toBe("Нет запросов");
+      expect(details.status).toBe(DialogStatus.PENDING);
+      expect(details.statusText).toBe("Диалог еще не начат");
       expect(details.hasResult).toBe(false);
       expect(details.hasFollowups).toBe(false);
       expect(details.isCanceled).toBe(false);

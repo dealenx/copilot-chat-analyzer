@@ -59,7 +59,7 @@ console.log(`Количество запросов: ${requestsCount}`);
 
 // Определение статуса диалога
 const status = analyzer.getDialogStatus(chatData);
-console.log(`Статус: ${status}`); // 'completed', 'canceled', 'in_progress'
+console.log(`Статус: ${status}`); // 'pending', 'completed', 'canceled', 'in_progress'
 
 // Получение детальной информации о статусе
 const details = analyzer.getDialogStatusDetails(chatData);
@@ -94,6 +94,11 @@ const errorCalls = analyzer.getMcpToolErrorCalls(chatData, 'update_entry_fields'
 ## Статусы диалога
 
 Библиотека автоматически определяет текущий статус чата при экспорте:
+
+- **`DialogStatus.PENDING`** (`"pending"`) - Диалог еще не начат
+
+  - Массив `requests` пустой или отсутствует
+  - Еще не было сделано ни одного запроса к Copilot
 
 - **`DialogStatus.COMPLETED`** (`"completed"`) - Диалог завершен успешно
 
@@ -176,7 +181,7 @@ interface CopilotChatData {
   [key: string]: any;
 }
 
-type DialogStatusType = "completed" | "canceled" | "in_progress";
+type DialogStatusType = "pending" | "completed" | "canceled" | "in_progress";
 
 interface DialogStatusDetails {
   status: DialogStatusType;

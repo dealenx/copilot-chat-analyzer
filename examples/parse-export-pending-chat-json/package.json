@@ -1,0 +1,13 @@
+{
+  "name": "parse-export-pending-chat-json",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Пример использования copilot-chat-analyzer",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "copilot-chat-analyzer": "file:../../"
+  }
+}

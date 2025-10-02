@@ -46,6 +46,7 @@ interface McpMonitoringSummary {
 }
 
 export const DialogStatus = {
+  PENDING: "pending",
   COMPLETED: "completed",
   CANCELED: "canceled",
   IN_PROGRESS: "in_progress",
@@ -74,12 +75,12 @@ export class CopilotChatAnalyzer {
 
   getDialogStatus(chatData: CopilotChatData): DialogStatusType {
     if (!this.hasRequests(chatData)) {
-      return DialogStatus.IN_PROGRESS;
+      return DialogStatus.PENDING;
     }
 
     const lastRequest = this.getLastRequest(chatData);
     if (!lastRequest) {
-      return DialogStatus.IN_PROGRESS;
+      return DialogStatus.PENDING;
     }
 
     if (lastRequest.isCanceled === true) {
@@ -104,8 +105,8 @@ export class CopilotChatAnalyzer {
 
     if (!this.hasRequests(chatData)) {
       return {
-        status: DialogStatus.IN_PROGRESS,
-        statusText: "Нет запросов",
+        status: DialogStatus.PENDING,
+        statusText: "Диалог еще не начат",
         hasResult: false,
         hasFollowups: false,
         isCanceled: false,
@@ -115,6 +116,7 @@ export class CopilotChatAnalyzer {
     const lastRequest = this.getLastRequest(chatData);
 
     const statusTexts = {
+      [DialogStatus.PENDING]: "Диалог еще не начат",
       [DialogStatus.COMPLETED]: "Диалог завершен успешно",
       [DialogStatus.CANCELED]: "Диалог был отменен",
       [DialogStatus.IN_PROGRESS]: "Диалог в процессе выполнения",
