@@ -1,0 +1,220 @@
+{
+  "requesterUsername": "mimicai-user1",
+  "requesterAvatarIconUri": {
+    "$mid": 1,
+    "path": "/u/231215291",
+    "scheme": "https",
+    "authority": "avatars.githubusercontent.com",
+    "query": "v=4"
+  },
+  "responderUsername": "GitHub Copilot",
+  "responderAvatarIconUri": {
+    "id": "copilot"
+  },
+  "initialLocation": "panel",
+  "requests": [
+    {
+      "requestId": "request_465c6a97-e584-42eb-ac5c-18340882bbbc",
+      "message": {
+        "parts": [
+          {
+            "range": {
+              "start": 0,
+              "endExclusive": 70
+            },
+            "editorRange": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 1,
+              "endColumn": 71
+            },
+            "text": "вызови метод update_entry_fields, но вызови так чтобы было 400 ошибка ",
+            "kind": "text"
+          }
+        ],
+        "text": "вызови метод update_entry_fields, но вызови так чтобы было 400 ошибка "
+      },
+      "variableData": {
+        "variables": []
+      },
+      "response": [
+        {
+          "value": "Я вызову метод `update_entry_fields` с некорректными данными, чтобы получить ошибку 400: ",
+          "supportThemeIcons": false,
+          "supportHtml": false,
+          "baseUri": {
+            "$mid": 1,
+            "path": "/c:/Users/dealenx/dev/mimicai/copilot-chat-analyzer/",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "prepareToolInvocation",
+          "toolName": "mcp_micmicai-mcp_update_entry_fields"
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "invocationMessage": {
+            "value": "Running `update_entry_fields`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false
+          },
+          "pastTenseMessage": {
+            "value": "Ran `update_entry_fields` ",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false
+          },
+          "originMessage": "micmicai-mcp (MCP Server)",
+          "isConfirmed": {
+            "type": 3,
+            "scope": "profile"
+          },
+          "isComplete": true,
+          "source": {
+            "type": "mcp",
+            "serverLabel": "MimicAI MCP",
+            "label": "micmicai-mcp",
+            "collectionId": "mcp.config.usrlocal",
+            "definitionId": "mcp.config.usrlocal.micmicai-mcp"
+          },
+          "resultDetails": {
+            "input": "{\n  \"entry_id\": \"invalid_id\",\n  \"fields\": {}\n}",
+            "output": [
+              {
+                "type": "embed",
+                "isText": true,
+                "value": "Error calling tool 'update_entry_fields': 400: GraphQL ошибка при обновлении полей: Internal server error"
+              }
+            ],
+            "isError": true
+          },
+          "toolSpecificData": {
+            "kind": "input",
+            "rawInput": {
+              "entry_id": "invalid_id",
+              "fields": {}
+            }
+          },
+          "toolCallId": "2deb4aeb-0530-49f4-97b0-c0bdb214a46d",
+          "toolId": "mcp_micmicai-mcp_update_entry_fields"
+        },
+        {
+          "value": "Отлично! Я успешно вызвал метод `update_entry_fields` и получил ошибку 400, как вы и просили. Ошибка возникла из-за передачи некорректного `entry_id` (\"invalid_id\") и пустого объекта полей (`{}`), что привело к GraphQL ошибке с кодом 400 и сообщением \"Internal server error\".",
+          "supportThemeIcons": false,
+          "supportHtml": false,
+          "baseUri": {
+            "$mid": 1,
+            "path": "/c:/Users/dealenx/dev/mimicai/copilot-chat-analyzer/",
+            "scheme": "file"
+          }
+        }
+      ],
+      "responseId": "response_caa79561-1f9c-4c04-997e-cbaaca99b88b",
+      "result": {
+        "timings": {
+          "firstProgress": 2930,
+          "totalElapsed": 9393
+        },
+        "metadata": {
+          "codeBlocks": [],
+          "renderedUserMessage": [
+            {
+              "type": 1,
+              "text": "<context>\nThe current date is October 3, 2025.\nTerminals:\nTerminal: powershell\nTerminal: powershell\n\n</context>\n<repoContext>\nBelow is the information about the current repository. You can use this information when you need to calculate diffs or compare changes with the default branch.\nRepository name: copilot-chat-analyzer\nOwner: dealenx\nCurrent branch: main\n\n</repoContext>\n<reminderInstructions>\nWhen using the replace_string_in_file tool, include 3-5 lines of unchanged code before and after the string you want to replace, to make it unambiguous which part of the file should be edited.\n\n</reminderInstructions>\n<userRequest>\nвызови метод update_entry_fields, но вызови так чтобы было 400 ошибка \n</userRequest>\n"
+            },
+            {
+              "type": 3,
+              "cacheType": "ephemeral"
+            }
+          ],
+          "renderedGlobalContext": [
+            {
+              "type": 1,
+              "text": "<environment_info>\nThe user's current OS is: Windows\nThe user's default shell is: \"powershell.exe\" (Windows PowerShell v5.1). When you generate terminal commands, please generate them correctly for this shell. Use the `;` character if joining commands on a single line is needed.\n</environment_info>\n<workspace_info>\nI am working in a workspace with the following folders:\n- c:\\Users\\dealenx\\dev\\mimicai\\copilot-chat-analyzer \nI am working in a workspace that has the following structure:\n```\njest.config.cjs\nLICENSE\nmise.toml\npackage.json\npnpm-lock.yaml\nREADME.md\nTaskfile.yml\ntsconfig.json\ntsup.config.ts\nexamples/\n\tparse-export-chat-json/\n\t\tchat.json\n\t\tindex.js\n\t\tpackage.json\n\t\tpnpm-lock.yaml\nsrc/\n\tindex.ts\n\t__tests__/\n\t\tCopilotChatAnalyzer.test.ts\n\t\tModuleCompatibility.test.ts\n\t\tPackageConfig.test.ts\n\t\tchat/\n\t\t\tcompleted_chat.json\n\t\t\tin_progress_chat.json\n```\nThis is the state of the context at this point in the conversation. The view of the workspace structure may be truncated. You can use tools to collect more context if needed.\n</workspace_info>\n"
+            },
+            {
+              "type": 3,
+              "cacheType": "ephemeral"
+            }
+          ],
+          "toolCallRounds": [
+            {
+              "response": "Я вызову метод `update_entry_fields` с некорректными данными, чтобы получить ошибку 400: ",
+              "toolCalls": [
+                {
+                  "name": "mcp_micmicai-mcp_update_entry_fields",
+                  "arguments": "{\"entry_id\": \"invalid_id\", \"fields\": {}}",
+                  "id": "toolu_vrtx_01HNGkGxN98S77pNx4xq4WBc__vscode-1759432867808"
+                }
+              ],
+              "toolInputRetry": 0,
+              "id": "efd7005f-73b2-4fb4-a546-d788656f2c90"
+            },
+            {
+              "response": "Отлично! Я успешно вызвал метод `update_entry_fields` и получил ошибку 400, как вы и просили. Ошибка возникла из-за передачи некорректного `entry_id` (\"invalid_id\") и пустого объекта полей (`{}`), что привело к GraphQL ошибке с кодом 400 и сообщением \"Internal server error\".",
+              "toolCalls": [],
+              "toolInputRetry": 0,
+              "id": "88affb44-82de-464b-833e-3d77f3325ab8"
+            }
+          ],
+          "toolCallResults": {
+            "toolu_vrtx_01HNGkGxN98S77pNx4xq4WBc__vscode-1759432867808": {
+              "$mid": 20,
+              "content": [
+                {
+                  "$mid": 21,
+                  "value": "Error calling tool 'update_entry_fields': 400: GraphQL ошибка при обновлении полей: Internal server error"
+                }
+              ]
+            }
+          },
+          "modelMessageId": "6b1d2073-f300-46da-8522-a1e77a083f07",
+          "responseId": "c4d4b4de-5caa-4a94-8dfb-c15381e548fa",
+          "sessionId": "4d94cc58-21b2-4fa8-a208-72d86a8990ef",
+          "agentId": "github.copilot.editsAgent"
+        },
+        "details": "Claude Sonnet 4 • 1x"
+      },
+      "responseMarkdownInfo": [],
+      "followups": [],
+      "isCanceled": false,
+      "agent": {
+        "extensionId": {
+          "value": "GitHub.copilot-chat",
+          "_lower": "github.copilot-chat"
+        },
+        "extensionVersion": "0.31.3",
+        "publisherDisplayName": "GitHub",
+        "extensionPublisherId": "GitHub",
+        "extensionDisplayName": "GitHub Copilot Chat",
+        "id": "github.copilot.editsAgent",
+        "description": "Edit files in your workspace in agent mode",
+        "when": "config.chat.agent.enabled",
+        "metadata": {
+          "themeIcon": {
+            "id": "tools"
+          },
+          "hasFollowups": false,
+          "supportIssueReporting": false
+        },
+        "name": "agent",
+        "fullName": "GitHub Copilot",
+        "isDefault": true,
+        "locations": ["panel"],
+        "modes": ["agent"],
+        "slashCommands": [
+          {
+            "name": "list"
+          }
+        ],
+        "disambiguation": []
+      },
+      "contentReferences": [],
+      "codeCitations": [],
+      "timestamp": 1759432977192,
+      "modelId": "copilot/claude-sonnet-4"
+    }
+  ]
+}

@@ -14,110 +14,81 @@
   "initialLocation": "panel",
   "requests": [
     {
-      "requestId": "request_962e76d4-743c-490e-9609-c8f65ef52f56",
+      "requestId": "request_b954e50d-60d0-4510-aa0e-9ddb6c264ceb",
       "message": {
         "parts": [
           {
             "range": {
               "start": 0,
-              "endExclusive": 45
+              "endExclusive": 2
             },
             "editorRange": {
               "startLineNumber": 1,
               "startColumn": 1,
               "endLineNumber": 1,
-              "endColumn": 46
+              "endColumn": 3
             },
-            "text": "Найди информацию о снежных барсах в интернете",
+            "text": "hi",
             "kind": "text"
           }
         ],
-        "text": "Найди информацию о снежных барсах в интернете"
+        "text": "hi"
       },
       "variableData": {
         "variables": []
       },
       "response": [
         {
-          "value": "Я помогу вам найти информацию о снежных барсах в интернете. Давайте поищем актуальную информацию об этих удивительных животных. ",
-          "supportThemeIcons": false,
-          "supportHtml": false
-        },
-        {
-          "kind": "prepareToolInvocation",
-          "toolName": "copilot_fetchWebPage"
-        },
-        {
-          "kind": "toolInvocationSerialized",
-          "presentation": "hidden",
-          "invocationMessage": "Using \"Fetch Web Page\"",
-          "isConfirmed": {
-            "type": 1
-          },
-          "isComplete": true,
-          "source": {
-            "type": "internal",
-            "label": "Built-In"
-          },
-          "toolCallId": "16a3088a-dbed-49f6-b9c7-2742be395a0c",
-          "toolId": "copilot_fetchWebPage"
-        },
-        {
-          "kind": "toolInvocationSerialized",
-          "invocationMessage": {
-            "value": "Fetching 3 resources",
-            "isTrusted": false,
-            "supportThemeIcons": false,
-            "supportHtml": false
-          },
-          "pastTenseMessage": {
-            "value": "Fetched 3 resources",
-            "isTrusted": false,
-            "supportThemeIcons": false,
-            "supportHtml": false
-          },
-          "isConfirmed": {
-            "type": 3,
-            "scope": "profile"
-          },
-          "isComplete": true,
-          "source": {
-            "type": "internal",
-            "label": "Built-In"
-          },
-          "resultDetails": [
-            {
-              "$mid": 1,
-              "external": "https://ru.wikipedia.org/wiki/%D0%A1%D0%BD%D0%B5%D0%B6%D0%BD%D1%8B%D0%B9_%D0%B1%D0%B0%D1%80%D1%81",
-              "path": "/wiki/Снежный_барс",
-              "scheme": "https",
-              "authority": "ru.wikipedia.org"
-            },
-            {
-              "$mid": 1,
-              "external": "https://www.wwf.ru/species/snow-leopard/",
-              "path": "/species/snow-leopard/",
-              "scheme": "https",
-              "authority": "www.wwf.ru"
-            },
-            {
-              "$mid": 1,
-              "external": "https://www.nationalgeographic.com/animals/mammals/facts/snow-leopard",
-              "path": "/animals/mammals/facts/snow-leopard",
-              "scheme": "https",
-              "authority": "www.nationalgeographic.com"
-            }
-          ],
-          "toolCallId": "f68c1772-b4f0-431a-9b77-f0c421818017",
-          "toolId": "vscode_fetchWebPage_internal"
-        },
-        {
-          "value": "На основе найденной информации о снежных барсах (ирбисах) могу предоставить вам подробные сведения об этих удивительных животных:\n\n## **Снежный барс (Ирбис) - основная информация**\n\n### **Общие характеристики:**\n- **Научное название:** Panthera uncia\n- **Размер:** длина тела 103-130 см, хвост 80-105 см\n- **Вес:** 22-40 кг\n- **Статус охраны:** Уязвимый вид (IUCN Red List)\n\n### **Внешний вид:**\n- Густая, длинная шерсть светло-серого цвета с дымчатым налетом\n- Крупные кольцевидные пятна в форме розеток\n- Очень длинный и пушистый хвост (до 105 см)\n- Широкие лапы, покрытые мехом, действуют как естественные снегоступы\n- Небольшая округлая голова с короткими ушами\n\n### **Среда обитания:**\n- **Географический ареал:** горы Центральной и Южной Азии (12 стран)\n- **Высота:** 1500-6000 метров над уровнем моря\n- **Предпочитаемые места:** альпийские луга, скалистые местности, каменистые россыпи\n- **В России:** Алтай, Тува, Хакасия, Красноярский край, Бурятия\n\n### **Образ жизни и поведение:**\n- Ведут одиночный образ жизни\n- Территориальные животные с большими охотничьими участками\n- Активны преимущественно в сумерках\n- Отличные прыгуны - могут прыгать на расстояние до 15 метров\n- Используют хвост для балансировки и как одеяло в холод\n\n### **Питание:**\n- **Основная добыча:** горные козлы, архары, голубые бараны\n- **Дополнительная пища:** мармоты, зайцы, птицы (улары)\n- Могут справиться с добычей, превышающей их по весу в 2-3 раза\n- За один раз съедают 2-3 кг мяса\n\n### **Размножение:**\n- Половая зрелость: 3-4 года\n- Беременность: 90-110 дней\n- Помет: обычно 2-3 котенка\n- Самостоятельность: на вторую зиму жизни\n- Продолжительность жизни: до 13 лет в природе, до 21 года в неволе\n\n### **Статус популяции и угрозы:**\n- **Общая численность:** 2700-3400 особей в мире (2020 г.)\n- **В России:** 70-90 особей\n- **Основные угрозы:**\n  - Браконьерство ради меха и костей\n  - Сокращение добычи\n  - Конфликт с местными жителями\n  - Изменение климата\n\n### **Охрана:**\n- Внесен в Красную книгу России (1 категория)\n- Охраняется конвенцией CITES (Приложение I)\n- Глобальная программа сохранения снежного барса (2013 г.)\n- Специальные заповедники и национальные парки\n- Программы мониторинга с фотоловушками\n\n### **Интересные факты:**\n- Не умеет рычать, в отличие от других больших кошек\n- Может издавать звуки, похожие на мурлыканье\n- Прекрасно адаптирован к экстремальным условиям высокогорья\n- Символ многих горных регионов Азии\n- Является флагманским видом для сохранения горных экосистем\n\nСнежный барс - один из самых редких и малоизученных представителей семейства кошачьих, требующий особых усилий по сохранению для будущих поколений.",
+          "value": "Hello! How can I help you today?",
           "supportThemeIcons": false,
           "supportHtml": false
         }
       ],
-      "responseId": "response_71d0b3c5-921a-44fa-a61f-9fd3b6170421",
+      "responseId": "response_9d3e1c43-b4ce-4d8b-9f6f-3d369fe928f8",
+      "result": {
+        "timings": {
+          "firstProgress": 3474,
+          "totalElapsed": 3507
+        },
+        "metadata": {
+          "codeBlocks": [],
+          "renderedUserMessage": [
+            {
+              "type": 1,
+              "text": "<context>\nThe current date is October 2, 2025.\nNo terminals found.\n</context>\n<reminderInstructions>\nWhen using the insert_edit_into_file tool, avoid repeating existing code, instead use a line comment with \\`...existing code...\\` to represent regions of unchanged code.\nWhen using the replace_string_in_file tool, include 3-5 lines of unchanged code before and after the string you want to replace, to make it unambiguous which part of the file should be edited.\nYou must always try making file edits using the replace_string_in_file tool. NEVER use insert_edit_into_file unless told to by the user or by a tool.\n</reminderInstructions>\n<userRequest>\nhi\n</userRequest>\n"
+            },
+            {
+              "type": 3,
+              "cacheType": "ephemeral"
+            }
+          ],
+          "renderedGlobalContext": [
+            {
+              "type": 1,
+              "text": "<environment_info>\nThe user's current OS is: Windows\nThe user's default shell is: \"powershell.exe\" (Windows PowerShell v5.1). When you generate terminal commands, please generate them correctly for this shell. Use the `;` character if joining commands on a single line is needed.\n</environment_info>\n<workspace_info>\nThere is no workspace currently open.\nThis is the state of the context at this point in the conversation. The view of the workspace structure may be truncated. You can use tools to collect more context if needed.\n</workspace_info>\n"
+            },
+            {
+              "type": 3,
+              "cacheType": "ephemeral"
+            }
+          ],
+          "toolCallRounds": [
+            {
+              "response": "Hello! How can I help you today?",
+              "toolCalls": [],
+              "toolInputRetry": 0,
+              "id": "2ad833bb-57c6-4ed3-a932-33a9ee4654d4"
+            }
+          ],
+          "modelMessageId": "24e2878d-a6f0-4b28-8552-56cd71925119",
+          "responseId": "c1b47ea2-35ec-420a-9699-293e723d058f",
+          "sessionId": "ff72bca6-0dec-4953-b130-a103a97e5380",
+          "agentId": "github.copilot.editsAgent"
+        },
+        "details": "Gemini 2.5 Pro • 1x"
+      },
+      "responseMarkdownInfo": [],
+      "followups": [],
       "isCanceled": false,
       "agent": {
         "extensionId": {
@@ -141,8 +112,12 @@
         "name": "agent",
         "fullName": "GitHub Copilot",
         "isDefault": true,
-        "locations": ["panel"],
-        "modes": ["agent"],
+        "locations": [
+          "panel"
+        ],
+        "modes": [
+          "agent"
+        ],
         "slashCommands": [
           {
             "name": "list"
@@ -152,8 +127,115 @@
       },
       "contentReferences": [],
       "codeCitations": [],
-      "timestamp": 1759353161760,
-      "modelId": "copilot/claude-sonnet-4"
+      "timestamp": 1759418211240,
+      "modelId": "copilot/gemini-2.5-pro"
+    },
+    {
+      "requestId": "request_677e0e3a-20dc-4d32-946a-b3f6225e3105",
+      "message": {
+        "parts": [
+          {
+            "range": {
+              "start": 0,
+              "endExclusive": 5
+            },
+            "editorRange": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 1,
+              "endColumn": 6
+            },
+            "text": "hello",
+            "kind": "text"
+          }
+        ],
+        "text": "hello"
+      },
+      "variableData": {
+        "variables": []
+      },
+      "response": [
+        {
+          "value": "Hello! How can I help you?",
+          "supportThemeIcons": false,
+          "supportHtml": false
+        }
+      ],
+      "responseId": "response_4b04e934-07ab-40b7-9590-a18f28d40bed",
+      "result": {
+        "timings": {
+          "firstProgress": 2890,
+          "totalElapsed": 2900
+        },
+        "metadata": {
+          "codeBlocks": [],
+          "renderedUserMessage": [
+            {
+              "type": 1,
+              "text": "<context>\nThe current date is October 2, 2025.\nNo terminals found.\n</context>\n<reminderInstructions>\nWhen using the insert_edit_into_file tool, avoid repeating existing code, instead use a line comment with \\`...existing code...\\` to represent regions of unchanged code.\nWhen using the replace_string_in_file tool, include 3-5 lines of unchanged code before and after the string you want to replace, to make it unambiguous which part of the file should be edited.\nYou must always try making file edits using the replace_string_in_file tool. NEVER use insert_edit_into_file unless told to by the user or by a tool.\n</reminderInstructions>\n<userRequest>\nhello\n</userRequest>\n"
+            },
+            {
+              "type": 3,
+              "cacheType": "ephemeral"
+            }
+          ],
+          "toolCallRounds": [
+            {
+              "response": "Hello! How can I help you?",
+              "toolCalls": [],
+              "toolInputRetry": 0,
+              "id": "065e1e68-64ee-4762-b28e-42858298432b"
+            }
+          ],
+          "modelMessageId": "a42325bc-ea6e-4511-8120-b5a832a68a23",
+          "responseId": "62e827c7-555b-4251-8ff5-e412d6d74e9b",
+          "sessionId": "ff72bca6-0dec-4953-b130-a103a97e5380",
+          "agentId": "github.copilot.editsAgent"
+        },
+        "details": "Gemini 2.5 Pro • 1x"
+      },
+      "responseMarkdownInfo": [],
+      "followups": [],
+      "isCanceled": false,
+      "agent": {
+        "extensionId": {
+          "value": "GitHub.copilot-chat",
+          "_lower": "github.copilot-chat"
+        },
+        "extensionVersion": "0.31.3",
+        "publisherDisplayName": "GitHub",
+        "extensionPublisherId": "GitHub",
+        "extensionDisplayName": "GitHub Copilot Chat",
+        "id": "github.copilot.editsAgent",
+        "description": "Edit files in your workspace in agent mode",
+        "when": "config.chat.agent.enabled",
+        "metadata": {
+          "themeIcon": {
+            "id": "tools"
+          },
+          "hasFollowups": false,
+          "supportIssueReporting": false
+        },
+        "name": "agent",
+        "fullName": "GitHub Copilot",
+        "isDefault": true,
+        "locations": [
+          "panel"
+        ],
+        "modes": [
+          "agent"
+        ],
+        "slashCommands": [
+          {
+            "name": "list"
+          }
+        ],
+        "disambiguation": []
+      },
+      "contentReferences": [],
+      "codeCitations": [],
+      "timestamp": 1759418255799,
+      "modelId": "copilot/gemini-2.5-pro"
     }
   ]
 }

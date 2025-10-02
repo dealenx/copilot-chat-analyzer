@@ -73,6 +73,24 @@ console.log({
 });
 ```
 
+### Мониторинг MCP инструментов
+
+```javascript
+// Получить список всех MCP инструментов в чате
+const toolNames = analyzer.getMcpToolNames(chatData);
+console.log('Инструменты:', toolNames);
+
+// Получить все вызовы конкретного инструмента
+const calls = analyzer.getMcpToolCalls(chatData, 'update_entry_fields');
+calls.forEach((call, i) => {
+  console.log(`${i + 1}. ${call.isError ? '❌ Ошибка' : '✅ Успех'}: ${JSON.stringify(call.input)}`);
+});
+
+// Получить только успешные или только ошибочные вызовы
+const successCalls = analyzer.getMcpToolSuccessfulCalls(chatData, 'update_entry_fields');
+const errorCalls = analyzer.getMcpToolErrorCalls(chatData, 'update_entry_fields');
+```
+
 ## Статусы диалога
 
 Библиотека автоматически определяет текущий статус чата при экспорте:
