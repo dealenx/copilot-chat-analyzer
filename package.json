@@ -2,13 +2,20 @@
   "name": "copilot-chat-analyzer",
   "private": false,
   "version": "0.0.2",
-  "description": "Simple library for analyzing exported GitHub Copilot chats",
+  "description": "TypeScript library for analyzing and monitoring GitHub Copilot chat exports with status detection, request counting, and MCP tool tracking",
   "keywords": [
     "copilot",
     "chat",
     "analyzer",
     "github",
-    "typescript"
+    "typescript",
+    "mcp",
+    "model-context-protocol",
+    "monitoring",
+    "status-detection",
+    "dialog-analysis",
+    "ai-tools",
+    "export-analysis"
   ],
   "author": "dealenx",
   "license": "MIT",
@@ -20,6 +27,35 @@
     "url": "https://github.com/dealenx/copilot-chat-analyzer/issues"
   },
   "homepage": "https://github.com/dealenx/copilot-chat-analyzer#readme",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/dealenx"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "ai-usage": {
+    "purpose": "Analyze GitHub Copilot chat exports for dialog status, request counting, and MCP tool monitoring",
+    "quick-start": "import CopilotChatAnalyzer, { DialogStatus } from 'copilot-chat-analyzer'; const analyzer = new CopilotChatAnalyzer(); const status = analyzer.getDialogStatus(chatData);",
+    "main-features": [
+      "Dialog status detection (pending, in_progress, completed, canceled)",
+      "Request counting and analysis",
+      "MCP (Model Context Protocol) tool monitoring",
+      "Chat export validation and parsing"
+    ],
+    "common-methods": {
+      "getDialogStatus": "Returns dialog status: 'pending' | 'completed' | 'canceled' | 'in_progress'",
+      "getRequestsCount": "Returns number of requests in chat",
+      "getDialogStatusDetails": "Returns detailed status information with flags",
+      "getMcpToolMonitoring": "Returns MCP tool usage statistics and monitoring data"
+    },
+    "status-meanings": {
+      "pending": "Chat created but no requests made yet (requests: [])",
+      "in_progress": "Chat has requests but not completed",
+      "completed": "Chat finished successfully (has followups: [])",
+      "canceled": "Chat was canceled (isCanceled: true)"
+    }
+  },
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
@@ -33,7 +69,10 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "AI_USAGE.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsup",

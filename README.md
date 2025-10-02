@@ -4,14 +4,39 @@
 [![Code Quality](https://github.com/dealenx/copilot-chat-analyzer/actions/workflows/quality.yml/badge.svg)](https://github.com/dealenx/copilot-chat-analyzer/actions/workflows/quality.yml)
 [![npm version](https://badge.fury.io/js/copilot-chat-analyzer.svg)](https://badge.fury.io/js/copilot-chat-analyzer)
 
-Простая библиотека для анализа экспортированных чатов GitHub Copilot.
+TypeScript библиотека для анализа экспортированных чатов GitHub Copilot с поддержкой мониторинга MCP инструментов.
+
+## 🤖 AI Assistant Quick Reference
+
+```typescript
+// Basic import and usage
+import CopilotChatAnalyzer, { DialogStatus } from "copilot-chat-analyzer";
+
+const analyzer = new CopilotChatAnalyzer();
+const chatData = JSON.parse(fs.readFileSync("chat.json", "utf8"));
+
+// Core methods:
+analyzer.getDialogStatus(chatData); // Returns: 'pending' | 'in_progress' | 'completed' | 'canceled'
+analyzer.getRequestsCount(chatData); // Returns: number
+analyzer.getDialogStatusDetails(chatData); // Returns: { status, statusText, hasResult, hasFollowups, isCanceled, lastRequestId }
+analyzer.getMcpToolMonitoring(chatData); // Returns: MCP tool usage statistics
+
+// Dialog statuses:
+// - 'pending': Empty requests array, chat not started
+// - 'in_progress': Has requests but not finished
+// - 'completed': Has followups:[] and not canceled
+// - 'canceled': isCanceled:true in last request
+```
 
 ## Особенности
 
-- 📊 Подсчет количества запросов в диалоге
-- 🔍 Определение статуса диалога (завершен, отменен, в процессе)
-- 📝 Получение детальной информации о статусе
-- 🚀 Простой и понятный API
+- 📊 **Анализ статусов диалога** - автоматическое определение состояния чата
+- 🔢 **Подсчет запросов** - точный подсчет количества запросов в диалоге
+- 🔍 **Детальная диагностика** - получение развернутой информации о статусе
+- �️ **MCP мониторинг** - отслеживание использования Model Context Protocol инструментов
+- 📈 **Статистика успешности** - анализ успешности выполнения MCP вызовов
+- 🚀 **Простой API** - интуитивно понятный интерфейс
+- 💪 **TypeScript** - полная поддержка типов
 
 ## Установка
 
@@ -78,17 +103,27 @@ console.log({
 ```javascript
 // Получить список всех MCP инструментов в чате
 const toolNames = analyzer.getMcpToolNames(chatData);
-console.log('Инструменты:', toolNames);
+console.log("Инструменты:", toolNames);
 
 // Получить все вызовы конкретного инструмента
-const calls = analyzer.getMcpToolCalls(chatData, 'update_entry_fields');
+const calls = analyzer.getMcpToolCalls(chatData, "update_entry_fields");
 calls.forEach((call, i) => {
-  console.log(`${i + 1}. ${call.isError ? '❌ Ошибка' : '✅ Успех'}: ${JSON.stringify(call.input)}`);
+  console.log(
+    `${i + 1}. ${call.isError ? "❌ Ошибка" : "✅ Успех"}: ${JSON.stringify(
+      call.input
+    )}`
+  );
 });
 
 // Получить только успешные или только ошибочные вызовы
-const successCalls = analyzer.getMcpToolSuccessfulCalls(chatData, 'update_entry_fields');
-const errorCalls = analyzer.getMcpToolErrorCalls(chatData, 'update_entry_fields');
+const successCalls = analyzer.getMcpToolSuccessfulCalls(
+  chatData,
+  "update_entry_fields"
+);
+const errorCalls = analyzer.getMcpToolErrorCalls(
+  chatData,
+  "update_entry_fields"
+);
 ```
 
 ## Статусы диалога
