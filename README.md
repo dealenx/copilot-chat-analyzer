@@ -4,7 +4,9 @@
 [![Code Quality](https://github.com/dealenx/copilot-chat-analyzer/actions/workflows/quality.yml/badge.svg)](https://github.com/dealenx/copilot-chat-analyzer/actions/workflows/quality.yml)
 [![npm version](https://badge.fury.io/js/copilot-chat-analyzer.svg)](https://badge.fury.io/js/copilot-chat-analyzer)
 
-TypeScript библиотека для анализа экспортированных чатов GitHub Copilot с поддержкой мониторинга MCP инструментов.
+TypeScript библиотека для **анализа** экспортированных чатов GitHub Copilot с поддержкой мониторинга MCP инструментов.
+
+> **⚠️ Важно**: Эта библиотека предназначена только для **анализа** уже экспортированных JSON-файлов чата. Она НЕ экспортирует данные чата из VS Code. Для экспорта используйте команду VS Code `workbench.action.chat.export`.
 
 ## 🤖 AI Assistant Quick Reference
 
@@ -16,9 +18,11 @@ const analyzer = new CopilotChatAnalyzer();
 const chatData = JSON.parse(fs.readFileSync("chat.json", "utf8"));
 
 // Core methods:
-analyzer.getDialogStatus(chatData); // Returns: 'pending' | 'in_progress' | 'completed' | 'canceled'
+analyzer.getDialogStatus(chatData); // Returns: 'pending' | 'in_progress' | 'completed' | 'canceled' | 'failed'
 analyzer.getRequestsCount(chatData); // Returns: number
-analyzer.getDialogStatusDetails(chatData); // Returns: { status, statusText, hasResult, hasFollowups, isCanceled, lastRequestId }
+analyzer.getDialogStatusDetails(chatData); // Returns: { status, statusText, hasResult, hasFollowups, isCanceled, isFailed, lastRequestId, errorCode?, errorMessage? }
+analyzer.getSessionId(chatData); // Returns: string | null - Extract session ID from chat
+analyzer.getSessionInfo(chatData); // Returns: { sessionId, agentId?, modelId? } | null
 analyzer.getMcpToolMonitoring(chatData); // Returns: MCP tool usage statistics
 
 // Dialog statuses:
@@ -26,6 +30,7 @@ analyzer.getMcpToolMonitoring(chatData); // Returns: MCP tool usage statistics
 // - 'in_progress': Has requests but not finished
 // - 'completed': Has followups:[] and not canceled
 // - 'canceled': isCanceled:true in last request
+// - 'failed': Has result.errorDetails in last request (API error)
 ```
 
 ## Особенности
@@ -146,10 +151,30 @@ const errorCalls = analyzer.getMcpToolErrorCalls(
   - `isCanceled: true`
   - Может быть с `followups: []` или без него
 
+- **`DialogStatus.FAILED`** (`"failed"`) - Диалог завершился с ошибкой
+
+  - Есть поле `result.errorDetails` в последнем запросе
+  - Содержит `errorCode` и `errorMessage` в деталях статуса
+  - Обычно указывает на ошибку API или аутентификации
+
 - **`DialogStatus.IN_PROGRESS`** (`"in_progress"`) - Диалог в процессе
   - Отсутствует поле `followups`
   - `isCanceled: false`
   - **Такой статус получается при экспорте во время диалога**
+
+## Извлечение информации о сессии
+
+```javascript
+// Получить ID сессии (уникален для каждого диалога)
+const sessionId = analyzer.getSessionId(chatData);
+console.log(`Session ID: ${sessionId}`);
+// Пример: "ff72bca6-0dec-4953-b130-a103a97e5380"
+
+// Получить полную информацию о сессии
+const sessionInfo = analyzer.getSessionInfo(chatData);
+console.log(sessionInfo);
+// { sessionId: "ff72bca6-...", agentId: "github.copilot.editsAgent", modelId: "copilot/gemini-2.5-pro" }
+```
 
 ## Примеры использования
 
