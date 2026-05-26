@@ -175,6 +175,11 @@ export class CopilotChatAnalyzer {
       return DialogStatus.CANCELED;
     }
 
+    // Check modelState.value === 2 (Copilot: 1=completed, 2=canceled)
+    if (lastRequest.modelState?.value === 2) {
+      return DialogStatus.CANCELED;
+    }
+
     // Check errorDetails for canceled or failed status
     const errorDetails = lastRequest?.result?.errorDetails;
     if (errorDetails) {
@@ -232,7 +237,7 @@ export class CopilotChatAnalyzer {
       hasResult:
         lastRequest && "result" in lastRequest && lastRequest.result !== null,
       hasFollowups: lastRequest && "followups" in lastRequest,
-      isCanceled: lastRequest && lastRequest.isCanceled === true,
+      isCanceled: lastRequest && (lastRequest.isCanceled === true || lastRequest.modelState?.value === 2),
       isFailed: !!errorDetails,
       lastRequestId: lastRequest?.requestId,
       errorCode: errorDetails?.code,

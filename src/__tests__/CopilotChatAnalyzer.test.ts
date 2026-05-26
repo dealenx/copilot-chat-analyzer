@@ -188,6 +188,46 @@ describe("CopilotChatAnalyzer", () => {
       };
       expect(analyzer.getDialogStatus(chatData)).toBe(DialogStatus.CANCELED);
     });
+
+    test("should return CANCELED when modelState.value is 2 (user canceled)", () => {
+      const chatData = {
+        requests: [
+          {
+            requestId: "1",
+            followups: [],
+            modelState: { value: 2, completedAt: 1779822945315 },
+          },
+        ],
+      };
+      expect(analyzer.getDialogStatus(chatData)).toBe(DialogStatus.CANCELED);
+    });
+
+    test("should return CANCELED when modelState.value is 2 even with followups", () => {
+      const chatData = {
+        requests: [
+          {
+            requestId: "1",
+            followups: [],
+            result: {},
+            modelState: { value: 2 },
+          },
+        ],
+      };
+      expect(analyzer.getDialogStatus(chatData)).toBe(DialogStatus.CANCELED);
+    });
+
+    test("should return COMPLETED when modelState.value is 1", () => {
+      const chatData = {
+        requests: [
+          {
+            requestId: "1",
+            followups: [],
+            modelState: { value: 1, completedAt: 1779822927961 },
+          },
+        ],
+      };
+      expect(analyzer.getDialogStatus(chatData)).toBe(DialogStatus.COMPLETED);
+    });
   });
 
   describe("getDialogStatusDetails", () => {
@@ -257,6 +297,22 @@ describe("CopilotChatAnalyzer", () => {
       expect(details.status).toBe(DialogStatus.CANCELED);
       expect(details.isCanceled).toBe(true);
       expect(details.lastRequestId).toBe("req-456");
+    });
+
+    test("should detect canceled via modelState.value === 2", () => {
+      const chatData = {
+        requests: [
+          {
+            requestId: "req-789",
+            followups: [],
+            modelState: { value: 2, completedAt: 1779822945315 },
+          },
+        ],
+      };
+      const details = analyzer.getDialogStatusDetails(chatData);
+
+      expect(details.status).toBe(DialogStatus.CANCELED);
+      expect(details.isCanceled).toBe(true);
     });
   });
 
