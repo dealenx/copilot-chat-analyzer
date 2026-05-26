@@ -1,7 +1,7 @@
 {
   "name": "copilot-chat-analyzer",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "TypeScript library for analyzing and monitoring GitHub Copilot chat exports with status detection, request counting, and MCP tool tracking",
   "keywords": [
     "copilot",
@@ -88,6 +88,12 @@
     "ts-jest": "^29.4.4",
     "typescript": "~5.8.3",
     "vite": "^7.1.7"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "unrs-resolver"
+    ]
   },
   "dependencies": {
     "tsup": "^8.5.0"
