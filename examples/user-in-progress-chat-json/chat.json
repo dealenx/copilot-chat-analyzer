@@ -1,0 +1,355 @@
+{
+  "responderUsername": "GitHub Copilot",
+  "initialLocation": "panel",
+  "requests": [
+    {
+      "requestId": "request_d127e5ec-754a-4a76-b76a-9416a6224428",
+      "message": {
+        "parts": [
+          {
+            "range": {
+              "start": 0,
+              "endExclusive": 5
+            },
+            "editorRange": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 1,
+              "endColumn": 6
+            },
+            "text": "hello",
+            "kind": "text"
+          }
+        ],
+        "text": "hello"
+      },
+      "variableData": {
+        "variables": []
+      },
+      "response": [
+        {
+          "kind": "mcpServersStarting",
+          "didStartServerIds": []
+        },
+        {
+          "kind": "progressTaskSerialized",
+          "content": {
+            "value": "Optimizing tool selection...",
+            "uris": {}
+          },
+          "progress": []
+        },
+        {
+          "value": "Hello! I'm GitHub Copilot, your AI programming assistant. How can I help you today? Whether you need help with writing code, debugging, understanding a codebase, or any other programming task, I'm here to assist.",
+          "supportThemeIcons": false,
+          "supportHtml": false
+        }
+      ],
+      "agent": {
+        "extensionId": {
+          "value": "GitHub.copilot-chat",
+          "_lower": "github.copilot-chat"
+        },
+        "extensionVersion": "0.44.0-oss.1",
+        "publisherDisplayName": "GitHub",
+        "extensionPublisherId": "GitHub",
+        "extensionDisplayName": "GitHub Copilot Chat",
+        "id": "github.copilot.editsAgent",
+        "description": "Edit files in your workspace in agent mode",
+        "when": "config.chat.agent.enabled",
+        "metadata": {
+          "themeIcon": {
+            "id": "tools"
+          },
+          "hasFollowups": false,
+          "supportIssueReporting": false
+        },
+        "name": "agent",
+        "fullName": "GitHub Copilot",
+        "isDefault": true,
+        "locations": ["panel"],
+        "modes": ["agent"],
+        "slashCommands": [
+          {
+            "name": "compact",
+            "description": "Free up context by compacting the conversation history. Optionally include extra instructions for compaction."
+          },
+          {
+            "name": "explain",
+            "description": "Explain how the code in your active editor works"
+          },
+          {
+            "name": "tests",
+            "description": "Generate unit tests for the selected code",
+            "disambiguation": [
+              {
+                "category": "create_tests",
+                "description": "The user wants to generate unit tests.",
+                "examples": ["Generate tests for my selection using pytest."]
+              }
+            ]
+          },
+          {
+            "name": "fix",
+            "description": "Propose a fix for the problems in the selected code",
+            "sampleRequest": "There is a problem in this code. Rewrite the code to show it with the bug fixed."
+          },
+          {
+            "name": "new",
+            "description": "Scaffold code for a new file or project in a workspace",
+            "sampleRequest": "Create a RESTful API server using typescript",
+            "isSticky": true,
+            "disambiguation": [
+              {
+                "category": "create_new_workspace_or_extension",
+                "description": "The user wants to create a complete Visual Studio Code workspace from scratch, such as a new application or a Visual Studio Code extension. Use this category only if the question relates to generating or creating new workspaces in Visual Studio Code. Do not use this category for updating existing code or generating sample code snippets",
+                "examples": [
+                  "Scaffold a Node server.",
+                  "Create a sample project which uses the fileSystemProvider API.",
+                  "react application"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "newNotebook",
+            "description": "Create a new Jupyter Notebook",
+            "sampleRequest": "How do I create a notebook to load data from a csv file?",
+            "disambiguation": [
+              {
+                "category": "create_jupyter_notebook",
+                "description": "The user wants to create a new Jupyter notebook in Visual Studio Code.",
+                "examples": ["Create a notebook to analyze this CSV file."]
+              }
+            ]
+          },
+          {
+            "name": "setupTests",
+            "description": "Set up tests in your project (Experimental)",
+            "sampleRequest": "add playwright tests to my project",
+            "when": "config.github.copilot.chat.setupTests.enabled",
+            "disambiguation": [
+              {
+                "category": "set_up_tests",
+                "description": "The user wants to configure project test setup, framework, or test runner. The user does not want to fix their existing tests.",
+                "examples": ["Set up tests for this project."]
+              }
+            ]
+          }
+        ],
+        "disambiguation": []
+      },
+      "timestamp": 1779883574068,
+      "modelId": "oaicopilot/hekktor-5",
+      "modeInfo": {
+        "kind": "agent",
+        "isBuiltin": true,
+        "modeId": "agent",
+        "modeName": "agent",
+        "permissionLevel": "default"
+      },
+      "responseId": "response_9a1accea-e615-4dc9-930c-de2036a72e6a",
+      "result": {
+        "timings": {
+          "firstProgress": 5556,
+          "totalElapsed": 7278
+        },
+        "metadata": {
+          "codeBlocks": [],
+          "renderedUserMessage": [
+            {
+              "type": 1,
+              "text": "<context>\nThe current date is May 27, 2026.\nTerminals:\nTerminal: pwsh\n\n</context>\n<reminderInstructions>\nWhen using the insert_edit_into_file tool, avoid repeating existing code, instead use a line comment with \\`...existing code...\\` to represent regions of unchanged code.\nWhen using the replace_string_in_file tool, include 3-5 lines of unchanged code before and after the string you want to replace, to make it unambiguous which part of the file should be edited.\nIt is much faster to edit using the replace_string_in_file tool. Prefer the replace_string_in_file tool for making edits and only fall back to insert_edit_into_file if it fails.\n</reminderInstructions>\n<userRequest>\nhello\n</userRequest>\n"
+            },
+            {
+              "type": 3,
+              "cacheType": "ephemeral"
+            }
+          ],
+          "renderedGlobalContext": [
+            {
+              "type": 1,
+              "text": "<environment_info>\nThe user's current OS is: Windows\n</environment_info>\n<workspace_info>\nThere is no workspace currently open.\n</workspace_info>\n<userMemory>\nNo user preferences or notes saved yet. Use the memory tool to store persistent notes under /memories/.\n</userMemory>\n<sessionMemory>\nSession memory (/memories/session/) is empty. No session notes have been created yet.\n</sessionMemory>\n<repoMemory>\nRepository memory (/memories/repo/) is empty. No workspace-scoped notes have been created yet.\n</repoMemory>\n"
+            },
+            {
+              "type": 3,
+              "cacheType": "ephemeral"
+            }
+          ],
+          "cacheKey": "",
+          "toolCallRounds": [
+            {
+              "response": "Hello! I'm GitHub Copilot, your AI programming assistant. How can I help you today? Whether you need help with writing code, debugging, understanding a codebase, or any other programming task, I'm here to assist.",
+              "toolCalls": [],
+              "toolInputRetry": 0,
+              "id": "e554926e-a3d6-44eb-bf90-e349215abc81",
+              "timestamp": 1779883581432
+            }
+          ],
+          "resolvedModel": "hekktor-5",
+          "modelMessageId": "832cf8ef-5a88-43f1-a358-b4b9db4066a5",
+          "responseId": "e462c032-99c1-46cd-813c-b21e75d79d34",
+          "sessionId": "dd3beb19-0622-46bd-ad78-a1d709586a1c",
+          "agentId": "github.copilot.editsAgent"
+        },
+        "details": "Hekktor 5 • 0x"
+      },
+      "responseMarkdownInfo": [],
+      "followups": [],
+      "modelState": {
+        "value": 1,
+        "completedAt": 1779883581449
+      },
+      "contentReferences": [],
+      "codeCitations": [],
+      "timeSpentWaiting": 0
+    },
+    {
+      "requestId": "request_c7f7dd43-b085-4b6d-b36e-81dbb787ec41",
+      "message": {
+        "parts": [
+          {
+            "range": {
+              "start": 0,
+              "endExclusive": 27
+            },
+            "editorRange": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 1,
+              "endColumn": 28
+            },
+            "text": "hello world check in github",
+            "kind": "text"
+          }
+        ],
+        "text": "hello world check in github"
+      },
+      "variableData": {
+        "variables": []
+      },
+      "response": [
+        {
+          "kind": "mcpServersStarting",
+          "didStartServerIds": []
+        },
+        {
+          "value": "I'd be happy to help you create a \"Hello World\" project and push it to ",
+          "supportThemeIcons": false,
+          "supportHtml": false
+        }
+      ],
+      "agent": {
+        "extensionId": {
+          "value": "GitHub.copilot-chat",
+          "_lower": "github.copilot-chat"
+        },
+        "extensionVersion": "0.44.0-oss.1",
+        "publisherDisplayName": "GitHub",
+        "extensionPublisherId": "GitHub",
+        "extensionDisplayName": "GitHub Copilot Chat",
+        "id": "github.copilot.editsAgent",
+        "description": "Edit files in your workspace in agent mode",
+        "when": "config.chat.agent.enabled",
+        "metadata": {
+          "themeIcon": {
+            "id": "tools"
+          },
+          "hasFollowups": false,
+          "supportIssueReporting": false
+        },
+        "name": "agent",
+        "fullName": "GitHub Copilot",
+        "isDefault": true,
+        "locations": ["panel"],
+        "modes": ["agent"],
+        "slashCommands": [
+          {
+            "name": "compact",
+            "description": "Free up context by compacting the conversation history. Optionally include extra instructions for compaction."
+          },
+          {
+            "name": "explain",
+            "description": "Explain how the code in your active editor works"
+          },
+          {
+            "name": "tests",
+            "description": "Generate unit tests for the selected code",
+            "disambiguation": [
+              {
+                "category": "create_tests",
+                "description": "The user wants to generate unit tests.",
+                "examples": ["Generate tests for my selection using pytest."]
+              }
+            ]
+          },
+          {
+            "name": "fix",
+            "description": "Propose a fix for the problems in the selected code",
+            "sampleRequest": "There is a problem in this code. Rewrite the code to show it with the bug fixed."
+          },
+          {
+            "name": "new",
+            "description": "Scaffold code for a new file or project in a workspace",
+            "sampleRequest": "Create a RESTful API server using typescript",
+            "isSticky": true,
+            "disambiguation": [
+              {
+                "category": "create_new_workspace_or_extension",
+                "description": "The user wants to create a complete Visual Studio Code workspace from scratch, such as a new application or a Visual Studio Code extension. Use this category only if the question relates to generating or creating new workspaces in Visual Studio Code. Do not use this category for updating existing code or generating sample code snippets",
+                "examples": [
+                  "Scaffold a Node server.",
+                  "Create a sample project which uses the fileSystemProvider API.",
+                  "react application"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "newNotebook",
+            "description": "Create a new Jupyter Notebook",
+            "sampleRequest": "How do I create a notebook to load data from a csv file?",
+            "disambiguation": [
+              {
+                "category": "create_jupyter_notebook",
+                "description": "The user wants to create a new Jupyter notebook in Visual Studio Code.",
+                "examples": ["Create a notebook to analyze this CSV file."]
+              }
+            ]
+          },
+          {
+            "name": "setupTests",
+            "description": "Set up tests in your project (Experimental)",
+            "sampleRequest": "add playwright tests to my project",
+            "when": "config.github.copilot.chat.setupTests.enabled",
+            "disambiguation": [
+              {
+                "category": "set_up_tests",
+                "description": "The user wants to configure project test setup, framework, or test runner. The user does not want to fix their existing tests.",
+                "examples": ["Set up tests for this project."]
+              }
+            ]
+          }
+        ],
+        "disambiguation": []
+      },
+      "timestamp": 1779883587463,
+      "modelId": "oaicopilot/hekktor-5",
+      "modeInfo": {
+        "kind": "agent",
+        "isBuiltin": true,
+        "modeId": "agent",
+        "modeName": "agent",
+        "permissionLevel": "default"
+      },
+      "responseId": "response_321c8669-e46d-419d-83d1-458eb19df64b",
+      "modelState": {
+        "value": 2,
+        "completedAt": 1779883606116
+      },
+      "contentReferences": [],
+      "codeCitations": [],
+      "timeSpentWaiting": 0
+    }
+  ]
+}

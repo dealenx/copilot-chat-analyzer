@@ -172,11 +172,19 @@ export class CopilotChatAnalyzer {
 
     // Check canceled first (user action via legacy field)
     if (lastRequest.isCanceled === true) {
+      // If no followups property, chat is still open (request canceled but dialog in progress)
+      if (!("followups" in lastRequest)) {
+        return DialogStatus.IN_PROGRESS;
+      }
       return DialogStatus.CANCELED;
     }
 
     // Check modelState.value === 2 (Copilot: 1=completed, 2=canceled)
     if (lastRequest.modelState?.value === 2) {
+      // If no followups property, chat is still open (request canceled but dialog in progress)
+      if (!("followups" in lastRequest)) {
+        return DialogStatus.IN_PROGRESS;
+      }
       return DialogStatus.CANCELED;
     }
 

@@ -38,9 +38,16 @@ describe("CopilotChatAnalyzer", () => {
 
     test("should return CANCELED when last request is canceled", () => {
       const chatData = {
-        requests: [{ requestId: "1", isCanceled: true }],
+        requests: [{ requestId: "1", isCanceled: true, followups: [] }],
       };
       expect(analyzer.getDialogStatus(chatData)).toBe(DialogStatus.CANCELED);
+    });
+
+    test("should return IN_PROGRESS when last request is canceled but no followups (chat still open)", () => {
+      const chatData = {
+        requests: [{ requestId: "1", isCanceled: true }],
+      };
+      expect(analyzer.getDialogStatus(chatData)).toBe(DialogStatus.IN_PROGRESS);
     });
 
     test("should return CANCELED when errorDetails.code is 'canceled'", () => {
@@ -98,6 +105,13 @@ describe("CopilotChatAnalyzer", () => {
         requests: [{ requestId: "1", isCanceled: true, followups: [] }],
       };
       expect(analyzer.getDialogStatus(chatData)).toBe(DialogStatus.CANCELED);
+    });
+
+    test("should return IN_PROGRESS when isCanceled but no followups property (chat open)", () => {
+      const chatData = {
+        requests: [{ requestId: "1", isCanceled: true }],
+      };
+      expect(analyzer.getDialogStatus(chatData)).toBe(DialogStatus.IN_PROGRESS);
     });
 
     test("should return IN_PROGRESS when followups is not array", () => {
@@ -178,6 +192,7 @@ describe("CopilotChatAnalyzer", () => {
           {
             requestId: "1",
             isCanceled: true,
+            followups: [],
             result: {
               errorDetails: {
                 code: "failed",
@@ -202,7 +217,19 @@ describe("CopilotChatAnalyzer", () => {
       expect(analyzer.getDialogStatus(chatData)).toBe(DialogStatus.CANCELED);
     });
 
-    test("should return CANCELED when modelState.value is 2 even with followups", () => {
+    test("should return IN_PROGRESS when modelState.value is 2 but no followups (chat still open)", () => {
+      const chatData = {
+        requests: [
+          {
+            requestId: "1",
+            modelState: { value: 2, completedAt: 1779822945315 },
+          },
+        ],
+      };
+      expect(analyzer.getDialogStatus(chatData)).toBe(DialogStatus.IN_PROGRESS);
+    });
+
+    test("should return CANCELED when modelState.value is 2 even with result and followups", () => {
       const chatData = {
         requests: [
           {
@@ -289,6 +316,7 @@ describe("CopilotChatAnalyzer", () => {
           {
             requestId: "req-456",
             isCanceled: true,
+            followups: [],
           },
         ],
       };
@@ -312,6 +340,20 @@ describe("CopilotChatAnalyzer", () => {
       const details = analyzer.getDialogStatusDetails(chatData);
 
       expect(details.status).toBe(DialogStatus.CANCELED);
+      expect(details.isCanceled).toBe(true);
+    });
+
+    test("should return IN_PROGRESS when modelState.value=2 but no followups (chat open)", () => {
+      const chatData = {
+        requests: [
+          {
+            requestId: "req-inprogress",
+            modelState: { value: 2 },
+          },
+        ],
+      };
+      const details = analyzer.getDialogStatusDetails(chatData);
+      expect(details.status).toBe(DialogStatus.IN_PROGRESS);
       expect(details.isCanceled).toBe(true);
     });
   });
@@ -401,31 +443,27 @@ describe("CopilotChatAnalyzer", () => {
     });
 
     test("should correctly analyze canceled chat", () => {
-      // Canceled chat data
       const canceledChatData = {
         requests: [
           {
             requestId: "request_canceled_123",
-            isCanceled: true, // Canceled request
+            isCanceled: true,
+            followups: [],
             result: null,
           },
         ],
       };
 
-      // Test request count
       expect(analyzer.getRequestsCount(canceledChatData)).toBe(1);
-
-      // Test dialog status
       expect(analyzer.getDialogStatus(canceledChatData)).toBe(
         DialogStatus.CANCELED
       );
 
-      // Test status details
       const details = analyzer.getDialogStatusDetails(canceledChatData);
       expect(details.status).toBe(DialogStatus.CANCELED);
       expect(details.statusText).toBe("Dialog was canceled");
       expect(details.hasResult).toBe(false);
-      expect(details.hasFollowups).toBe(false);
+      expect(details.hasFollowups).toBe(true);
       expect(details.isCanceled).toBe(true);
       expect(details.isFailed).toBe(false);
       expect(details.lastRequestId).toBe("request_canceled_123");
